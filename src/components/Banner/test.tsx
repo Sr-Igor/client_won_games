@@ -13,7 +13,7 @@ const props = {
 
 describe('<Banner />', () => {
   it('should render the correctly', () => {
-    renderWithTheme(<Banner {...props} />)
+    const { container } = renderWithTheme(<Banner {...props} />)
 
     expect(
       screen.getByRole('heading', { name: /defy death 1/i })
@@ -32,5 +32,29 @@ describe('<Banner />', () => {
       'href',
       '/games/defy-death'
     )
+
+    expect(container.firstChild).toMatchSnapshot()
+  })
+
+  it('should render a Ribbon', () => {
+    renderWithTheme(
+      <Banner
+        {...props}
+        ribbon="Bestselling"
+        ribbonSize="small"
+        ribbonColor="secondary"
+      />
+    )
+
+    const ribbon = screen.getByText(/bestselling/i)
+
+    expect(ribbon).toBeInTheDocument()
+    expect(ribbon).toHaveStyle({
+      backgroundColor: '#3CD3C1'
+    })
+    expect(ribbon).toHaveStyle({
+      height: '2.6rem',
+      fontSize: '1.2rem'
+    })
   })
 })
