@@ -42,7 +42,8 @@ export const MenuFull = styled.nav<{ isOpen: boolean }>`
     flex-direction: column;
     justify-content: space-between;
     background-color: ${theme.colors.white};
-    position: absolute;
+    position: fixed;
+    z-index: ${theme.layers.menu};
     top: 0;
     left: 0;
     right: 0;
