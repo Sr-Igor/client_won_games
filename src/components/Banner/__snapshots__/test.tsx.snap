@@ -69,11 +69,11 @@ exports[`<Banner /> should render the correctly 1`] = `
 }
 
 @media (max-width:1170px) {
-  .c0 .sc-AxjAm {
+  .c0 .sc-bcXHqe {
     right: 0;
   }
 
-  .c0 .sc-AxjAm::before {
+  .c0 .sc-bcXHqe::before {
     display: none;
   }
 }
@@ -150,4 +150,4 @@ exports[`<Banner /> should render the correctly 1`] = `
     </a>
   </div>
 </main>
-`;
+`
