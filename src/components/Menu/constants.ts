@@ -1,4 +1,4 @@
-export const Link = [
+export const link = [
   {
     value: 0,
     label: 'Home',

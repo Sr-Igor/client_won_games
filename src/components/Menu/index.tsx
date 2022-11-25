@@ -1,5 +1,6 @@
 import * as S from './styles'
 import { useState } from 'react'
+import Link from 'next/link'
 
 import { Menu as MenuIcon } from '@styled-icons/material-outlined/Menu'
 import { ShoppingCart as CartIcon } from '@styled-icons/material-outlined/ShoppingCart'
@@ -8,7 +9,7 @@ import { Close as CloseIcon } from '@styled-icons/material-outlined/Close'
 
 import MediaMatch from 'components/MediaMatch'
 
-import { Link } from './constants'
+import { link } from './constants'
 
 import Logo from 'components/Logo'
 import Button from 'components/Button'
@@ -34,7 +35,7 @@ const Menu = ({ userName }: MenuProps) => {
 
       <MediaMatch greaterThan="medium">
         <S.MenuNav>
-          {Link.map((link, index) => {
+          {link.map((link, index) => {
             if (link.needAuth && !userName) return null
             return (
               <S.MenuLink key={index} href={link.url}>
@@ -55,14 +56,18 @@ const Menu = ({ userName }: MenuProps) => {
         </S.IconWrapper>
 
         <MediaMatch greaterThan="medium">
-          {!userName && <Button>Sign in</Button>}
+          {!userName && (
+            <Link href="sign-in" passHref>
+              <Button as="a">Sign in</Button>
+            </Link>
+          )}
         </MediaMatch>
       </div>
 
       <S.MenuFull aria-hidden={!isOpen} isOpen={isOpen}>
         <CloseIcon aria-label="close menu" onClick={() => setIsOpen(false)} />
         <S.MenuNav>
-          {Link.map((link, index) => {
+          {link.map((link, index) => {
             if (link.needAuth && !userName) return null
             return (
               <S.MenuLink key={index} href={link.url}>
@@ -74,13 +79,17 @@ const Menu = ({ userName }: MenuProps) => {
 
         {!userName && (
           <S.RegisterBox>
-            <Button fullWidth size="large">
-              Login now
-            </Button>
+            <Link href="sign-in" passHref>
+              <Button fullWidth size="large">
+                Login now
+              </Button>
+            </Link>
             <span>or</span>
-            <S.CreateAccount href="#" title="Sign Up">
-              Sign up
-            </S.CreateAccount>
+            <Link href="sign-up" passHref>
+              <S.CreateAccount href="#" title="Sign Up">
+                Sign up
+              </S.CreateAccount>
+            </Link>
           </S.RegisterBox>
         )}
       </S.MenuFull>
