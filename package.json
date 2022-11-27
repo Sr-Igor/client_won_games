@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@mui/styled-engine-sc": "^5.10.6",
+    "@styled-icons/fa-brands": "^10.46.0",
     "next": "9.5.2",
     "next-pwa": "^3.1.1",
     "react": "16.13.1",
