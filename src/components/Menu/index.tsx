@@ -30,7 +30,11 @@ const Menu = ({ userName }: MenuProps) => {
       </MediaMatch>
 
       <S.LogoWrapper>
-        <Logo hiddenText />
+        <Link href="/" passHref>
+          <a>
+            <Logo hiddenText />
+          </a>
+        </Link>
       </S.LogoWrapper>
 
       <MediaMatch greaterThan="medium">
@@ -38,9 +42,9 @@ const Menu = ({ userName }: MenuProps) => {
           {link.map((link, index) => {
             if (link.needAuth && !userName) return null
             return (
-              <S.MenuLink key={index} href={link.url}>
-                {link.label}
-              </S.MenuLink>
+              <Link key={index} href={link.url} passHref>
+                <S.MenuLink>{link.label}</S.MenuLink>
+              </Link>
             )
           })}
         </S.MenuNav>
@@ -70,9 +74,9 @@ const Menu = ({ userName }: MenuProps) => {
           {link.map((link, index) => {
             if (link.needAuth && !userName) return null
             return (
-              <S.MenuLink key={index} href={link.url}>
-                {link.label}
-              </S.MenuLink>
+              <Link key={index} href={link.url} passHref>
+                <S.MenuLink>{link.label}</S.MenuLink>
+              </Link>
             )
           })}
         </S.MenuNav>
