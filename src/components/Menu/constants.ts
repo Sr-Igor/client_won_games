@@ -8,19 +8,19 @@ export const link = [
   {
     value: 1,
     label: 'Explore',
-    url: '/explore',
+    url: '/games',
     needAuth: false
   },
   {
     value: 2,
     label: 'My account',
-    url: '/my-account',
+    url: '/profile/me',
     needAuth: true
   },
   {
     value: 3,
     label: 'Wishlist',
-    url: '/whishlist',
+    url: '/profile/wishlist',
     needAuth: true
   }
 ]

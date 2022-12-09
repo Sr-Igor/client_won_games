@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import { Menu as MenuIcon } from '@styled-icons/material-outlined/Menu'
-import { ShoppingCart as CartIcon } from '@styled-icons/material-outlined/ShoppingCart'
+// import { ShoppingCart as CartIcon } from '@styled-icons/material-outlined/ShoppingCart'
 import { Search as SearchIcon } from '@styled-icons/material-outlined/Search'
 import { Close as CloseIcon } from '@styled-icons/material-outlined/Close'
 
@@ -13,6 +13,9 @@ import { link } from './constants'
 
 import Logo from 'components/Logo'
 import Button from 'components/Button'
+import CartDropdown from 'components/CartDropdown'
+import CartIcon from 'components/CartIcon'
+import UserDropdown from 'components/UserDropdown'
 
 export type MenuProps = {
   userName?: string
@@ -56,14 +59,25 @@ const Menu = ({ userName }: MenuProps) => {
         </S.IconWrapper>
 
         <S.IconWrapper>
-          <CartIcon aria-label="open shopping cart" />
+          <MediaMatch greaterThan="medium">
+            <CartDropdown />
+          </MediaMatch>
+          <MediaMatch lessThan="medium">
+            <Link href="/cart" passHref>
+              <a>
+                <CartIcon />
+              </a>
+            </Link>
+          </MediaMatch>
         </S.IconWrapper>
 
         <MediaMatch greaterThan="medium">
-          {!userName && (
+          {!userName ? (
             <Link href="sign-in" passHref>
               <Button as="a">Sign in</Button>
             </Link>
+          ) : (
+            <UserDropdown username={userName} />
           )}
         </MediaMatch>
       </div>
