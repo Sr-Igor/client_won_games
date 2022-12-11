@@ -4,11 +4,12 @@ import Ribbon from 'components/Ribbon'
 import { AddShoppingCart } from 'styled-icons/material'
 import { FavoriteBorder } from 'styled-icons/material-rounded'
 import * as S from './styles'
+import formatPrice from 'utils/formatPrice'
 
 export type GameInfoProps = {
   title: string
   description: string
-  price: string
+  price: number
 }
 
 const GameInfo = ({ title, description, price }: GameInfoProps) => (
@@ -18,7 +19,7 @@ const GameInfo = ({ title, description, price }: GameInfoProps) => (
     </Heading>
 
     <Ribbon color="secondary" size="small">
-      {`$${price}`}
+      {formatPrice(price)}
     </Ribbon>
 
     <S.Description>{description}</S.Description>

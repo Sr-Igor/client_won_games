@@ -7,7 +7,8 @@ const props = {
   title: 'Population Zero',
   developer: 'Rockstar Games',
   img: 'https://source.unsplash.com/user/willianjusten/300x140',
-  price: 'R$ 235,00'
+  price: 235.0,
+  slug: 'population-zero'
 }
 
 describe('<GameCard />', () => {
@@ -16,35 +17,37 @@ describe('<GameCard />', () => {
 
     expect(screen.getByText(props.title)).toBeInTheDocument()
     expect(screen.getByText(props.developer)).toBeInTheDocument()
-    expect(screen.getByText(props.price)).toBeInTheDocument()
     expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
       'src',
       props.img
     )
 
-    // expect(container.firstChild).toMatchSnapshot()
+    expect(screen.getByRole('link', { name: props.title })).toHaveAttribute(
+      'href',
+      `/game/${props.slug}`
+    )
   })
 
   it('should render without promotional price', () => {
     renderWithTheme(<GameCard {...props} />)
 
-    expect(screen.queryByText('999')).not.toBeInTheDocument()
-    expect(screen.getByText('R$ 235,00')).not.toHaveStyle({
+    expect(screen.queryByText('$999.00')).not.toBeInTheDocument()
+    expect(screen.getByText('$235.00')).not.toHaveStyle({
       textDecoration: 'line-through'
     })
-    expect(screen.getByText('R$ 235,00')).toHaveStyle({
+    expect(screen.getByText('$235.00')).toHaveStyle({
       backgroundColor: '#3CD3C1'
     })
   })
 
   it('should render promotional price', () => {
-    renderWithTheme(<GameCard {...props} promotionalPrice="999" />)
+    renderWithTheme(<GameCard {...props} promotionalPrice={999} />)
 
-    expect(screen.getByText('999')).toBeInTheDocument()
-    expect(screen.getByText('R$ 235,00')).toHaveStyle({
+    expect(screen.getByText('$999.00')).toBeInTheDocument()
+    expect(screen.getByText('$235.00')).toHaveStyle({
       textDecoration: 'line-through'
     })
-    expect(screen.getByText('999')).toHaveStyle({
+    expect(screen.getByText('$999.00')).toHaveStyle({
       backgroundColor: '#3CD3C1'
     })
   })
