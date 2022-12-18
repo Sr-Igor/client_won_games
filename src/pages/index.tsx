@@ -1,6 +1,5 @@
 import Home, { HomeTemplateProps } from 'templates/Home'
 
-import { items as gamesMock } from 'components/GameCardSlider/mock'
 import { item as highlightMock } from 'components/Highlight/mock'
 import { initializeApollo } from 'utils/apollo'
 import { QUERY_HOME } from 'graphql/queries/home'
@@ -14,7 +13,7 @@ export async function getStaticProps() {
   const apolloClient = initializeApollo()
 
   const {
-    data: { banners, newGames }
+    data: { banners, newGames, upcomingGames, freeGames, sections }
   } = await apolloClient.query<QueryHome>({
     query: QUERY_HOME,
     variables: {
@@ -25,6 +24,7 @@ export async function getStaticProps() {
   return {
     props: {
       revalidate: 60,
+
       banners: banners.map((banner) => ({
         img: `http://localhost:1337${banner.image?.url}`,
         title: banner.title,
@@ -35,6 +35,7 @@ export async function getStaticProps() {
         ribbonColor: banner.ribbon?.color ?? '',
         ribbonSize: banner.ribbon?.sizes ?? ''
       })),
+
       newGames: newGames.map((game) => ({
         title: game.name,
         slug: game.slug,
@@ -42,12 +43,35 @@ export async function getStaticProps() {
         img: `http://localhost:1337${game.cover?.url}`,
         price: game.price
       })),
+
       mostPopularHighlight: highlightMock,
-      mostPopularGames: gamesMock,
-      upcommingGames: gamesMock,
+
+      mostPopularGames: sections!.popularGames!.games.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0]?.name ? game.developers[0].name : '',
+        img: `http://localhost:1337${game.cover?.url}`,
+        price: game.price
+      })),
+
+      upcomingGames: upcomingGames.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0]?.name ? game.developers[0].name : '',
+        img: `http://localhost:1337${game.cover?.url}`,
+        price: game.price
+      })),
+
       upcommingHighligth: highlightMock,
-      upcommingMoreGames: gamesMock,
-      freeGames: gamesMock,
+
+      freeGames: freeGames.map((game) => ({
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0]?.name ? game.developers[0].name : '',
+        img: `http://localhost:1337${game.cover?.url}`,
+        price: game.price
+      })),
+
       freeHighligth: highlightMock
     }
   }
