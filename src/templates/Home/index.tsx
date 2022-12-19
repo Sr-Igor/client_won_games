@@ -9,50 +9,64 @@ import * as S from './styles'
 
 export type HomeTemplateProps = {
   banners: BannnerProps[]
+  newGamesTitle: string
   newGames: GameCardProps[]
+  mostPopularGamesTitle: string
   mostPopularHighlight: HighlightProps
   mostPopularGames: GameCardProps[]
+  upcomingGamesTitle: string
   upcomingGames: GameCardProps[]
-  upcommingHighligth: HighlightProps
+  upcomingHighlight: HighlightProps
+  freeGamesTitle: string
   freeGames: GameCardProps[]
-  freeHighligth: HighlightProps
+  freeHighlight: HighlightProps
 }
 
 const Home = ({
   banners,
+  newGamesTitle,
   newGames,
+  mostPopularGamesTitle,
   mostPopularHighlight,
   mostPopularGames,
+  upcomingGamesTitle,
   upcomingGames,
-  upcommingHighligth,
+  upcomingHighlight,
+  freeGamesTitle,
   freeGames,
-  freeHighligth
-}: HomeTemplateProps) => (
-  <Base>
-    <Container>
-      <S.SectionBanner>
-        <BannerSlider items={banners} />
-      </S.SectionBanner>
-    </Container>
+  freeHighlight
+}: HomeTemplateProps) => {
+  return (
+    <Base>
+      <Container>
+        <S.SectionBanner>
+          <BannerSlider items={banners} />
+        </S.SectionBanner>
+      </Container>
 
-    <S.SectionNews>
-      <Showcase title="News" games={newGames} color={'black'} />
-    </S.SectionNews>
+      <S.SectionNews>
+        <Showcase title={newGamesTitle} games={newGames} color={'black'} />
+      </S.SectionNews>
 
-    <Showcase
-      title="Most Popular"
-      highlight={mostPopularHighlight}
-      games={mostPopularGames}
-    />
+      <Showcase
+        title={mostPopularGamesTitle}
+        highlight={mostPopularHighlight}
+        games={mostPopularGames}
+      />
 
-    <Showcase
-      title="Upcomming"
-      games={upcomingGames}
-      highlight={upcommingHighligth}
-    />
+      <Showcase
+        title={upcomingGamesTitle}
+        games={upcomingGames}
+        highlight={upcomingHighlight}
+      />
 
-    <Showcase title="Free Games" games={freeGames} highlight={freeHighligth} />
-  </Base>
-)
+      <Showcase
+        title={freeGamesTitle}
+        highlight={freeHighlight}
+        games={freeGames}
+      />
+    </Base>
+  )
+}
 
 export default Home
