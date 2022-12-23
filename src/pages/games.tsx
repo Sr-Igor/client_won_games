@@ -10,10 +10,10 @@ export default function GamesPage(props: GameTemplateProps) {
 
 export async function getServerSideProps() {
   const apolloClient = initializeApollo()
-  const { data } = await apolloClient.query<QueryGames, QueryGamesVariables>({
+  await apolloClient.query<QueryGames, QueryGamesVariables>({
     query: GET_GAMES,
     variables: {
-      limit: 9,
+      limit: 15,
       start: 0,
       sort: 'id:desc'
     }
@@ -21,14 +21,8 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      // revalidate: 60,
-      games: data.games.map((game) => ({
-        title: game.name,
-        developer: game.developers[0]?.name ? game.developers[0].name : '',
-        img: game.cover?.url ? `http://localhost:1337${game.cover.url}` : '',
-        price: game.price,
-        slug: game.slug
-      })),
+      revalidate: 60,
+      initialApolloState: apolloClient.cache.extract(),
       filterItems: filterItemsMock
     }
   }
