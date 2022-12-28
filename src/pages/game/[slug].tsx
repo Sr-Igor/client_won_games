@@ -76,10 +76,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { data: upcoming } = await apolloClient.query<
     QueryUpcoming,
     QueryUpcomingVariables
-  >({ query: QUERY_UPCOMING, variables: { date: TODAY } })
+  >({
+    query: QUERY_UPCOMING,
+    variables: { date: TODAY },
+    fetchPolicy: 'no-cache'
+  })
 
   return {
     revalidate: 60,
+
     props: {
       cover: game.cover?.src ? `http://localhost:1337${game.cover.src}` : '',
       gameInfo: {
