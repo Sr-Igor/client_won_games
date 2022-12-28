@@ -60,9 +60,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     variables: { slug: `${params?.slug}` }
   })
 
-  // if (!data.games.length) {
-  //   return { notFound: true }
-  // }
+  if (!data.games.length) {
+    return { notFound: true, props: {} }
+  }
 
   const game = data.games[0]
 
@@ -78,11 +78,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     QueryUpcomingVariables
   >({ query: QUERY_UPCOMING, variables: { date: TODAY } })
 
-  console.log('upcoming', upcoming)
-
   return {
+    revalidate: 60,
     props: {
-      // revalidate: 60,
       cover: game.cover?.src ? `http://localhost:1337${game.cover.src}` : '',
       gameInfo: {
         title: game.name,
