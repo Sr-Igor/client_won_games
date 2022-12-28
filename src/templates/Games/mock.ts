@@ -9,6 +9,7 @@ export const gamesMock = {
     data: {
       games: [
         {
+          id: '1',
           name: 'Game 1',
           slug: 'game-1',
           cover: { url: '/img/img1.jpg' },
@@ -34,6 +35,7 @@ export const fetchMoreMock = {
     data: {
       games: [
         {
+          id: '2',
           name: 'Fetch More Game',
           slug: 'fetch-more',
           price: 518.39,
