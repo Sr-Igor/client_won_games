@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components'
 import { CheckboxProps } from '.'
 
-type LabelProps = Pick<CheckboxProps, 'labelColor'>
-
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
