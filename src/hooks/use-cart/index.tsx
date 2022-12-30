@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { getStorageItem } from 'utils/localStorage'
+import { getStorageItem, setStorageItem } from 'utils/localStorage'
 import { useQueryGames } from 'graphql/queries/games'
 import { cartMapper } from 'utils/mappers'
+import formatPrice from 'utils/formatPrice'
 
 type CartItem = {
   id: string
@@ -12,22 +13,24 @@ type CartItem = {
 
 export type CartContextData = {
   items: CartItem[]
-  // quantity: number
-  // total: string
-  // isInCart: (id: string) => boolean
-  // addToCart: (item: GameItem) => void
-  // removeFromCart: (id: string) => void
-  // clearCart: () => void
+  quantity: number
+  total: string
+  isInCart: (id: string) => boolean
+  addToCart: (id: string) => void
+  removeFromCart: (id: string) => void
+  clearCart: () => void
+  loading: boolean
 }
 
 export const CartContextDefaultValues = {
-  items: []
-  // quantity: 0,
-  // total: '$0.00',
-  // isInCart: () => false,
-  // addToCart: () => null,
-  // removeFromCart: () => null,
-  // clearCart: () => null
+  items: [],
+  quantity: 0,
+  total: '$0.00',
+  isInCart: () => false,
+  addToCart: () => null,
+  removeFromCart: () => null,
+  clearCart: () => null,
+  loading: false
 }
 
 export const CartContext = createContext<CartContextData>(
@@ -53,7 +56,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   }, [])
 
-  const { data } = useQueryGames({
+  const { data, loading } = useQueryGames({
     skip: !cartItems?.length,
     variables: {
       where: {
@@ -62,10 +65,40 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   })
 
+  const total = data?.games.reduce((acc, game) => {
+    return acc + game.price
+  }, 0)
+
+  const isInCart = (id: string) => (cartItems?.includes(id) ? true : false)
+
+  const addToCart = (id: string) => {
+    const newItems = [...cartItems, id]
+    setCartItems(newItems)
+    setStorageItem(CART_KEY, newItems)
+  }
+
+  const removeFromCart = (id: string) => {
+    const newItems = cartItems.filter((item) => item !== id)
+    setCartItems(newItems)
+    setStorageItem(CART_KEY, newItems)
+  }
+
+  const clearCart = () => {
+    setCartItems([])
+    setStorageItem(CART_KEY, [])
+  }
+
   return (
     <CartContext.Provider
       value={{
-        items: cartMapper(data?.games)
+        items: cartMapper(data?.games),
+        quantity: cartItems?.length,
+        total: formatPrice(total || 0),
+        isInCart,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        loading
       }}
     >
       {children}
