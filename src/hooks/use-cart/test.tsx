@@ -1,17 +1,25 @@
 import { CartProvider, CartProviderProps, useCart } from '.'
-import { renderHook, act } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-hooks'
 import { setStorageItem } from 'utils/localStorage'
+import { cartItems, gamesMock } from './mock'
+import { MockedProvider } from '@apollo/client/testing'
 
 describe('useCart', () => {
-  it('should return items and its if there are any in the cart', () => {
+  it('should return items and its if there are any in the cart', async () => {
     const wrapper = ({ children }: CartProviderProps) => (
-      <CartProvider>{children}</CartProvider>
+      <MockedProvider mocks={[gamesMock]}>
+        <CartProvider>{children}</CartProvider>
+      </MockedProvider>
     )
 
     setStorageItem('cartItems', ['1', '2'])
 
-    const { result } = renderHook(() => useCart(), { wrapper })
+    const { result, waitForNextUpdate } = renderHook(() => useCart(), {
+      wrapper
+    })
 
-    expect(result.current.items).toStrictEqual(['1', '2'])
+    await waitForNextUpdate()
+
+    expect(result.current.items).toStrictEqual(cartItems)
   })
 })

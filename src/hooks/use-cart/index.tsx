@@ -1,8 +1,17 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { getStorageItem } from 'utils/localStorage'
+import { useQueryGames } from 'graphql/queries/games'
+import { cartMapper } from 'utils/mappers'
+
+type CartItem = {
+  id: string
+  img: string
+  title: string
+  price: string
+}
 
 export type CartContextData = {
-  items: string[]
+  items: CartItem[]
   // quantity: number
   // total: string
   // isInCart: (id: string) => boolean
@@ -44,10 +53,19 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   }, [])
 
+  const { data } = useQueryGames({
+    skip: !cartItems?.length,
+    variables: {
+      where: {
+        id: cartItems
+      }
+    }
+  })
+
   return (
     <CartContext.Provider
       value={{
-        items: cartItems
+        items: cartMapper(data?.games)
       }}
     >
       {children}
