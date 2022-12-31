@@ -4,6 +4,7 @@ import { renderWithTheme } from 'utils/tests/helpers'
 import GameCard from '.'
 
 const props = {
+  id: '1',
   title: 'Population Zero',
   developer: 'Rockstar Games',
   img: 'https://source.unsplash.com/user/willianjusten/300x140',

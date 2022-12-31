@@ -1,10 +1,12 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { getStorageItem, setStorageItem } from 'utils/localStorage'
 import { useQueryGames } from 'graphql/queries/games'
-import { cartMapper } from 'utils/mappers'
+import { useContext, createContext, useState, useEffect } from 'react'
 import formatPrice from 'utils/formatPrice'
+import { getStorageItem, setStorageItem } from 'utils/localStorage'
+import { cartMapper } from 'utils/mappers'
 
-type CartItem = {
+const CART_KEY = 'cartItems'
+
+export type CartItem = {
   id: string
   img: string
   title: string
@@ -42,17 +44,13 @@ export type CartProviderProps = {
 }
 
 const CartProvider = ({ children }: CartProviderProps) => {
-  const [cartItems, setCartItems] = useState<string[]>(
-    CartContextDefaultValues.items
-  )
-
-  const CART_KEY = 'cartItems'
+  const [cartItems, setCartItems] = useState<string[]>([])
 
   useEffect(() => {
-    const data = getStorageItem(CART_KEY)
+    const dataItems = getStorageItem(CART_KEY)
 
-    if (data) {
-      setCartItems(data)
+    if (dataItems) {
+      setCartItems(dataItems)
     }
   }, [])
 
@@ -69,30 +67,31 @@ const CartProvider = ({ children }: CartProviderProps) => {
     return acc + game.price
   }, 0)
 
-  const isInCart = (id: string) => (cartItems?.includes(id) ? true : false)
+  const isInCart = (id: string) => (id ? cartItems.includes(id) : false)
+
+  const saveCart = (cartItems: string[]) => {
+    setCartItems(cartItems)
+    setStorageItem(CART_KEY, cartItems)
+  }
 
   const addToCart = (id: string) => {
-    const newItems = [...cartItems, id]
-    setCartItems(newItems)
-    setStorageItem(CART_KEY, newItems)
+    saveCart([...cartItems, id])
   }
 
   const removeFromCart = (id: string) => {
-    const newItems = cartItems.filter((item) => item !== id)
-    setCartItems(newItems)
-    setStorageItem(CART_KEY, newItems)
+    const newCartItems = cartItems.filter((itemId: string) => itemId !== id)
+    saveCart(newCartItems)
   }
 
   const clearCart = () => {
-    setCartItems([])
-    setStorageItem(CART_KEY, [])
+    saveCart([])
   }
 
   return (
     <CartContext.Provider
       value={{
         items: cartMapper(data?.games),
-        quantity: cartItems?.length,
+        quantity: cartItems.length,
         total: formatPrice(total || 0),
         isInCart,
         addToCart,

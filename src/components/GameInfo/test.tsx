@@ -4,6 +4,7 @@ import { renderWithTheme } from 'utils/tests/helpers'
 import GameInfo from '.'
 
 const props = {
+  id: '1',
   title: 'Population Zero',
   description:
     'The new Crackdown 3 trailer has been released and we have the details here!',

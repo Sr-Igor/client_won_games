@@ -1,4 +1,5 @@
 export default {
+  id: '1',
   title: 'GameInfo',
   price: 235,
   description:

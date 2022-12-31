@@ -1,5 +1,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
 import GameCard, { GameCardProps } from '.'
+import { CartContextData } from 'hooks/use-cart'
+
 export default {
   title: 'GameCard',
   component: GameCard,
@@ -32,3 +34,13 @@ export const Default: Story<GameCardProps> = (args) => (
     <GameCard {...args} />
   </div>
 )
+
+export const IsInCart: Story<GameCardProps & CartContextData> = (args) => (
+  <div style={{ width: '30rem' }}>
+    <GameCard {...args} />
+  </div>
+)
+
+IsInCart.args = {
+  isInCart: () => true
+}
