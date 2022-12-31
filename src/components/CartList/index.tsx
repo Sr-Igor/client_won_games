@@ -5,7 +5,7 @@ import GameItem from 'components/GameItem'
 import * as S from './styles'
 import Empty from 'components/Empty'
 import { useCart } from '../../hooks/use-cart'
-import Loader from 'components/loader'
+import Loader from 'components/Loader'
 
 export type CartListProps = {
   hasButton?: boolean
@@ -36,7 +36,7 @@ const CartList = ({ hasButton = false }: CartListProps) => {
             {!hasButton && <span>Total:</span>}
             <S.Total>{total}</S.Total>
             {hasButton && (
-              <Link href="/cart">
+              <Link href="/cart" passHref>
                 <Button as="a">Buy it now</Button>
               </Link>
             )}

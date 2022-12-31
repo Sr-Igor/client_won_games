@@ -1,10 +1,10 @@
 import React from 'react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render } from 'utils/test-utils'
 import { Container } from '.'
 
 describe('<Container />', () => {
   it('should render the heading', () => {
-    const { container } = renderWithTheme(
+    const { container } = render(
       <Container>
         <span>Loren Ipsun</span>
       </Container>

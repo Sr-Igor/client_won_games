@@ -74,11 +74,11 @@ exports[`<Banner /> should render the correctly 1`] = `
 }
 
 @media (max-width:1170px) {
-  .c0 .sc-bcXHqe {
+  .c0 .sc-bdnxRM {
     right: 0;
   }
 
-  .c0 .sc-bcXHqe::before {
+  .c0 .sc-bdnxRM::before {
     display: none;
   }
 }
@@ -155,4 +155,4 @@ exports[`<Banner /> should render the correctly 1`] = `
     </a>
   </div>
 </main>
-`;
+`

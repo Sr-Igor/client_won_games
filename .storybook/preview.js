@@ -1,23 +1,28 @@
+import '../.jest/next-image.mock'
+import { addDecorator } from '@storybook/react'
 import { ThemeProvider } from 'styled-components'
+import { CartContext, CartContextDefaultValues } from 'hooks/use-cart'
+import { withNextRouter } from 'storybook-addon-next-router'
 import GlobalStyles from 'styles/global'
 import theme from 'styles/theme'
-import { CartContext, CartContextDefaultValues } from 'hooks/use-cart'
 
 export const parameters = {
   backgrounds: {
     default: 'won-light',
     values: [
       {
-        name: 'won-dark',
-        value: theme.colors.mainBg
-      },
-      {
         name: 'won-light',
         value: theme.colors.white
+      },
+      {
+        name: 'won-dark',
+        value: theme.colors.mainBg
       }
     ]
   }
 }
+
+addDecorator(withNextRouter())
 
 export const decorators = [
   (Story, context) => (

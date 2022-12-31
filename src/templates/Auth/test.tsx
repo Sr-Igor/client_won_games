@@ -1,5 +1,4 @@
-import { screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render, screen } from 'utils/test-utils'
 
 import Auth from '.'
 
@@ -10,7 +9,7 @@ const props = {
 
 describe('<Auth />', () => {
   it('should render logos, title, children', () => {
-    renderWithTheme(<Auth {...props} />)
+    render(<Auth {...props} />)
 
     expect(screen.getAllByRole('img', { name: /won games/i })).toHaveLength(2)
 

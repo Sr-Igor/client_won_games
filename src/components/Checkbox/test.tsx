@@ -1,11 +1,10 @@
-import { screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render, screen } from 'utils/test-utils'
 
 import Checkbox from '.'
 
 describe('<Checkbox />', () => {
   it('should render the heading whith label', () => {
-    renderWithTheme(<Checkbox label={'label'} labelFor="action" />)
+    render(<Checkbox label={'label'} labelFor="action" />)
 
     expect(screen.getByRole('checkbox')).toBeInTheDocument()
     expect(screen.getByLabelText(/label/i)).toBeInTheDocument()
@@ -13,13 +12,13 @@ describe('<Checkbox />', () => {
   })
 
   it('should render the heading whithout label', () => {
-    renderWithTheme(<Checkbox />)
+    render(<Checkbox />)
 
     expect(screen.queryByLabelText('Checkbox')).not.toBeInTheDocument()
   })
 
   it('sholud render a black label', () => {
-    renderWithTheme(<Checkbox label="label" labelColor="black" />)
+    render(<Checkbox label="label" labelColor="black" />)
 
     expect(screen.getByText(/label/i)).toHaveStyle({
       color: '#030517'
@@ -27,7 +26,7 @@ describe('<Checkbox />', () => {
   })
 
   it('sholud render a white label', () => {
-    renderWithTheme(<Checkbox label="label" labelColor="white" />)
+    render(<Checkbox label="label" labelColor="white" />)
 
     expect(screen.getByText(/label/i)).toHaveStyle({
       color: '#FAFAFA'
@@ -37,7 +36,7 @@ describe('<Checkbox />', () => {
   it('should dispatch onCheck when status changes', () => {
     const onCheck = jest.fn()
 
-    renderWithTheme(<Checkbox label="label" onCheck={onCheck} />)
+    render(<Checkbox label="label" onCheck={onCheck} />)
 
     expect(onCheck).not.toHaveBeenCalled()
 
@@ -50,9 +49,7 @@ describe('<Checkbox />', () => {
   it('should render checked by default', () => {
     const onCheck = jest.fn()
 
-    renderWithTheme(
-      <Checkbox label="label" onCheck={onCheck} isChecked={true} />
-    )
+    render(<Checkbox label="label" onCheck={onCheck} isChecked={true} />)
 
     expect(onCheck).not.toHaveBeenCalled()
 
@@ -63,7 +60,7 @@ describe('<Checkbox />', () => {
   })
 
   it('should be accessible with tab', () => {
-    renderWithTheme(<Checkbox label="labelText" labelFor="action" />)
+    render(<Checkbox label="labelText" labelFor="action" />)
 
     expect((screen.getByLabelText(/labelText/i).tabIndex = 0))
   })

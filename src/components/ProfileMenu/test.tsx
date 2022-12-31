@@ -1,11 +1,10 @@
-import { screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render, screen } from 'utils/test-utils'
 
 import ProfileMenu from '.'
 
 describe('<ProfileMenu />', () => {
   it('should render the heading', () => {
-    renderWithTheme(<ProfileMenu />)
+    render(<ProfileMenu />)
 
     expect(screen.getByText(/my profile/i)).toBeInTheDocument()
 
@@ -15,7 +14,7 @@ describe('<ProfileMenu />', () => {
   })
 
   it('should render menu with active link', () => {
-    renderWithTheme(<ProfileMenu activeLink="/profile/cards" />)
+    render(<ProfileMenu activeLink="/profile/cards" />)
 
     expect(screen.getByTitle(/my cards/i)).toHaveStyle({
       background: '#F231A5',

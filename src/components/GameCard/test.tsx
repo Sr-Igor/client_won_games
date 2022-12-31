@@ -1,5 +1,5 @@
-import { fireEvent, screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { fireEvent } from '@testing-library/react'
+import { render, screen } from 'utils/test-utils'
 
 import GameCard from '.'
 
@@ -14,7 +14,7 @@ const props = {
 
 describe('<GameCard />', () => {
   it('should render the correctly', () => {
-    renderWithTheme(<GameCard {...props} />)
+    render(<GameCard {...props} />)
 
     expect(screen.getByText(props.title)).toBeInTheDocument()
     expect(screen.getByText(props.developer)).toBeInTheDocument()
@@ -30,7 +30,7 @@ describe('<GameCard />', () => {
   })
 
   it('should render without promotional price', () => {
-    renderWithTheme(<GameCard {...props} />)
+    render(<GameCard {...props} />)
 
     expect(screen.queryByText('$999.00')).not.toBeInTheDocument()
     expect(screen.getByText('$235.00')).not.toHaveStyle({
@@ -42,7 +42,7 @@ describe('<GameCard />', () => {
   })
 
   it('should render promotional price', () => {
-    renderWithTheme(<GameCard {...props} promotionalPrice={999} />)
+    render(<GameCard {...props} promotionalPrice={999} />)
 
     expect(screen.getByText('$999.00')).toBeInTheDocument()
     expect(screen.getByText('$235.00')).toHaveStyle({
@@ -54,14 +54,14 @@ describe('<GameCard />', () => {
   })
 
   it('should render filled icon when favorite is true', () => {
-    renderWithTheme(<GameCard {...props} favorite />)
+    render(<GameCard {...props} favorite />)
 
     expect(screen.getByLabelText(/Remove to Wishlist/i)).toBeInTheDocument()
   })
 
   it('should call onFav method when favorite is clicked', () => {
     const onFav = jest.fn()
-    renderWithTheme(<GameCard {...props} favorite onFav={onFav} />)
+    render(<GameCard {...props} favorite onFav={onFav} />)
 
     fireEvent.click(screen.getByLabelText(/Remove to Wishlist/i))
 
@@ -69,7 +69,7 @@ describe('<GameCard />', () => {
   })
 
   it('should render gameCard with ribbon', () => {
-    renderWithTheme(
+    render(
       <GameCard
         {...props}
         ribbon="20% sale"

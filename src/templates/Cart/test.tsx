@@ -1,10 +1,8 @@
 import 'match-media-mock'
-import { screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render, screen } from 'utils/test-utils'
 
 import { items as gamesMock } from 'components/GameCardSlider/mock'
 import { item as highlightMock } from 'components/Highlight/mock'
-import itemsMock from 'components/CartList/mock'
 import cardsMock from 'components/PaymentOptions/mock'
 
 import Cart from '.'
@@ -53,7 +51,7 @@ jest.mock('components/Empty', () => ({
 
 describe('<Cart />', () => {
   it('should render sections', () => {
-    renderWithTheme(<Cart {...props} />)
+    render(<Cart {...props} />)
 
     expect(
       screen.getByRole('heading', { name: /my cart/i })

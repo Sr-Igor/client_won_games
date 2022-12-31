@@ -1,7 +1,6 @@
 import Button from 'components/Button'
 import Heading from 'components/Heading'
 import Ribbon from 'components/Ribbon'
-import { AddShoppingCart } from 'styled-icons/material'
 import CartButton from 'components/CartButton'
 import { FavoriteBorder } from 'styled-icons/material-rounded'
 import * as S from './styles'
