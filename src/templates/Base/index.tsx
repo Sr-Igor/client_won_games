@@ -9,12 +9,12 @@ export type BaseTemplateProps = {
 }
 
 const Base = ({ children }: BaseTemplateProps) => {
-  const { data } = useSession()
+  const { data, status } = useSession()
 
   return (
     <S.Wrapper>
       <Container>
-        <Menu userName={data?.user?.name} />
+        <Menu userName={data?.user?.name} loading={status === 'loading'} />
       </Container>
 
       <S.Content>{children}</S.Content>
