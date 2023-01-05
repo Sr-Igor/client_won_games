@@ -1,8 +1,7 @@
 import {
   AccountCircle,
   CreditCard,
-  FormatListBulleted,
-  ExitToApp
+  FormatListBulleted
 } from 'styled-icons/material-outlined'
 
 export const links = [
@@ -20,10 +19,5 @@ export const links = [
     label: 'My Orders',
     href: '/profile/orders',
     icon: <FormatListBulleted size={24} />
-  },
-  {
-    label: 'Sign out',
-    href: '/logout',
-    icon: <ExitToApp size={24} />
   }
 ]

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import * as S from './styles'
 import { links } from './constants'
+import { ExitToApp } from 'styled-icons/material-outlined'
+import { signOut } from 'next-auth/react'
 
 export type ProfileMenuProps = {
   activeLink?: string
@@ -17,6 +19,10 @@ const ProfileMenu = ({ activeLink }: ProfileMenuProps) => {
           </S.Link>
         </Link>
       ))}
+      <S.Link title={'Sign out'} role="button" onClick={() => signOut()}>
+        <ExitToApp size={24} />
+        <span>{'Sign out'}</span>
+      </S.Link>
     </S.Nav>
   )
 }

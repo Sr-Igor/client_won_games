@@ -1,6 +1,12 @@
 import FormSignIn from '.'
 import { render, screen } from 'utils/test-utils'
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    push: jest.fn()
+  })
+}))
+
 describe('<FormSignIn />', () => {
   it('should render the form', () => {
     const { container } = render(<FormSignIn />)
