@@ -8,6 +8,9 @@ const options: NextAuthOptions = {
   session: {
     strategy: 'jwt'
   },
+  jwt: {
+    secret: process.env.NEXT_PUBLIC_SECRET
+  },
   providers: [
     CredentialsProvider({
       type: 'credentials',
@@ -35,7 +38,15 @@ const options: NextAuthOptions = {
         }
       }
     })
-  ]
+  ],
+  callbacks: {
+    async session({ session }) {
+      return Promise.resolve(session)
+    },
+    async jwt({ token }) {
+      return Promise.resolve(token)
+    }
+  }
 }
 
 export default NextAuth(options)
