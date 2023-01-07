@@ -9,7 +9,7 @@ import { ChevronDown } from '@styled-icons/boxicons-regular/ChevronDown'
 import Dropdown from 'components/Dropdown'
 
 import * as S from './styles'
-import { signOut } from 'next-auth/react'
+import { signOut } from 'next-auth/client'
 
 export type UserDropdownProps = {
   username: string

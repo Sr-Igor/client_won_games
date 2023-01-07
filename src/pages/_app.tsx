@@ -7,13 +7,13 @@ import { ApolloProvider } from '@apollo/client'
 import { useApollo } from 'utils/apollo'
 import { CartProvider } from 'hooks/use-cart'
 import NextNprogress from 'nextjs-progressbar'
-import { SessionProvider } from 'next-auth/react'
+import { Provider as AuthProvider } from 'next-auth/client'
 
 function App({ Component, pageProps }: AppProps) {
   const client = useApollo(pageProps.initialApolloState)
 
   return (
-    <SessionProvider session={pageProps.session}>
+    <AuthProvider session={pageProps.session}>
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
           <CartProvider>
@@ -38,7 +38,7 @@ function App({ Component, pageProps }: AppProps) {
           </CartProvider>
         </ThemeProvider>
       </ApolloProvider>
-    </SessionProvider>
+    </AuthProvider>
   )
 }
 

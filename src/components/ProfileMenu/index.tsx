@@ -2,7 +2,7 @@ import Link from 'next/link'
 import * as S from './styles'
 import { links } from './constants'
 import { ExitToApp } from 'styled-icons/material-outlined'
-import { signOut } from 'next-auth/react'
+import { signOut } from 'next-auth/client'
 
 export type ProfileMenuProps = {
   activeLink?: string
