@@ -1,36 +1,17 @@
 import styled, { css } from 'styled-components'
-import { darken } from 'polished'
+import { lighten, darken } from 'polished'
 
 import * as TextFieldStyles from 'components/TextField/styles'
 import * as ButtonStyles from 'components/Button/styles'
 
-export const FormWrapper = styled.div`
+export const Wrapper = styled.div`
   ${({ theme }) => css`
     ${TextFieldStyles.Wrapper} {
       margin: ${theme.spacings.xxsmall} 0;
     }
+
     ${ButtonStyles.Wrapper} {
       margin: ${theme.spacings.medium} auto ${theme.spacings.xsmall};
-    }
-  `}
-`
-
-export const FormLoading = styled.img.attrs(() => ({
-  src: '/img/dots.svg',
-  alt: 'Waiting...'
-}))`
-  width: 4rem;
-`
-
-export const FormError = styled.p`
-  ${({ theme }) => css`
-    font-size: ${theme.font.sizes.small};
-    color: ${theme.colors.red};
-    text-align: center;
-    /* margin: ${theme.spacings.xxsmall} 0; */
-
-    svg {
-      width: 1.6rem;
     }
   `}
 `
@@ -52,14 +33,16 @@ export const FormLink = styled.div`
     }
   `}
 `
-export const FormSuccess = styled.p`
+
+export const ForgotPassword = styled.a`
   ${({ theme }) => css`
-    text-align: center;
-    color: ${theme.colors.black};
+    display: block;
     font-size: ${theme.font.sizes.small};
-    svg {
-      color: ${theme.colors.secondary};
-      width: 2.4rem;
+    color: ${theme.colors.black};
+    text-decoration: none;
+    text-align: right;
+    &:hover {
+      color: ${lighten(0.2, theme.colors.black)};
     }
   `}
 `

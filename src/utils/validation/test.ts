@@ -1,4 +1,9 @@
-import { signInValidate, signUpValidate } from './index'
+import {
+  forgotPasswordValidate,
+  resetPasswordValidate,
+  signInValidate,
+  signUpValidate
+} from './index'
 
 describe('Validation', () => {
   describe('signInValidate', () => {
@@ -82,6 +87,60 @@ Object {
 
       expect(signUpValidate(data)).toMatchObject({
         confirm_password: 'confirm password must be equal to password'
+      })
+    })
+  })
+
+  describe('forgotPasswordValidate', () => {
+    it('should validate empty fields', () => {
+      const data = {
+        email: ''
+      }
+
+      expect(forgotPasswordValidate(data)).toMatchObject({
+        email: '"email" is not allowed to be empty'
+      })
+    })
+
+    it('should validate invalid email', () => {
+      const data = {
+        email: 'invalid-email'
+      }
+
+      expect(forgotPasswordValidate(data)).toMatchObject({
+        email: '"email" must be a valid email'
+      })
+    })
+  })
+
+  describe('resetPasswordValidate', () => {
+    const data = {
+      password: '',
+      confirm_password: ''
+    }
+
+    it('should validate empty password', () => {
+      expect(resetPasswordValidate(data)).toMatchObject({
+        password: expect.any(String)
+      })
+    })
+
+    it('should validate empty confirm_password', () => {
+      expect(
+        resetPasswordValidate({ ...data, password: '123456' })
+      ).toMatchObject({
+        confirm_password: expect.any(String)
+      })
+    })
+
+    it('should validate invalid confirm_password', () => {
+      expect(
+        resetPasswordValidate({
+          password: '123456',
+          confirm_password: '1234567'
+        })
+      ).toMatchObject({
+        confirm_password: expect.any(String)
       })
     })
   })

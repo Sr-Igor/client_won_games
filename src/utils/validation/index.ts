@@ -50,3 +50,20 @@ export const signInValidate = (data: SignInData) => {
 
   return getFieldsErrors(schema.validate(data, { abortEarly: false }))
 }
+
+export const forgotPasswordValidate = (values: { email: string }) => {
+  const { email } = fieldsValidation
+  const schema = Joi.object({ email })
+
+  return getFieldsErrors(schema.validate(values, { abortEarly: false }))
+}
+
+export const resetPasswordValidate = (values: {
+  password: string
+  confirm_password: string
+}) => {
+  const { password, confirm_password } = fieldsValidation
+  const schema = Joi.object({ password, confirm_password })
+
+  return getFieldsErrors(schema.validate(values, { abortEarly: false }))
+}
