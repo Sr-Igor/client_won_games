@@ -56,20 +56,16 @@ const FormRestPassword = () => {
 
     const data = await response.json()
 
-    if (data.jwt) {
+    if (data.error) {
+      setFormError(data.message[0].messages[0].message)
+      setLoading(false)
+    } else {
       signIn('credentials', {
         email: data.user.email,
         password: values.password,
-        // redirect: false,
         callbackUrl: '/'
       })
-    } else {
-      setFormError(data.message[0].messages[0].message)
     }
-
-    setLoading(false)
-
-    // setFormError('Email or password is invalid')
   }
 
   return (
