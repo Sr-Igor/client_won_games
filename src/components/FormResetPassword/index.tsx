@@ -7,7 +7,7 @@ import { ErrorOutline, Lock } from '@styled-icons/material-outlined'
 import { FormWrapper, FormLoading, FormError } from 'components/Form'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
-import { FieldsErrors } from 'utils/validation'
+import { FieldsErrors, resetPasswordValidate } from 'utils/validation'
 
 const FormRestPassword = () => {
   const [formError, setFormError] = useState('')
@@ -18,7 +18,7 @@ const FormRestPassword = () => {
   })
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const { push, query } = router
+  const { query } = router
 
   const handleInput = (field: string, value: string) => {
     setValues((s) => ({ ...s, [field]: value }))
@@ -28,7 +28,7 @@ const FormRestPassword = () => {
     event.preventDefault()
     setLoading(true)
 
-    const errors = {}
+    const errors = resetPasswordValidate(values)
 
     if (Object.keys(errors).length) {
       setFieldError(errors)
@@ -38,20 +38,38 @@ const FormRestPassword = () => {
 
     setFieldError({})
 
-    // sign in
-    const result = await signIn('credentials', {
-      ...values,
-      redirect: false,
-      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
-    })
+    // Reset password
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          password: values.password,
+          passwordConfirmation: values.confirm_password,
+          code: query?.code as string
+        })
+      }
+    )
 
-    if (result?.url) {
-      return push(result?.url)
+    const data = await response.json()
+
+    if (data.jwt) {
+      signIn('credentials', {
+        email: data.user.email,
+        password: values.password,
+        // redirect: false,
+        callbackUrl: '/'
+      })
+    } else {
+      setFormError(data.message[0].messages[0].message)
     }
 
     setLoading(false)
 
-    setFormError('Email or password is invalid')
+    // setFormError('Email or password is invalid')
   }
 
   return (
