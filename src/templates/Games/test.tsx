@@ -1,3 +1,4 @@
+import 'session.mock'
 import filterItemsMock from 'components/ExploreSidebar/mock'
 import { MockedProvider } from '@apollo/client/testing'
 import { gamesMock, fetchMoreMock, noGamesMock } from './mock'
