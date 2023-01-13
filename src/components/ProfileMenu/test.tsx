@@ -7,16 +7,14 @@ describe('<ProfileMenu />', () => {
     render(<ProfileMenu />)
 
     expect(screen.getByText(/my profile/i)).toBeInTheDocument()
-
-    expect(screen.getByText(/my cards/i)).toBeInTheDocument()
     expect(screen.getByText(/my orders/i)).toBeInTheDocument()
     expect(screen.getByText(/sign out/i)).toBeInTheDocument()
   })
 
   it('should render menu with active link', () => {
-    render(<ProfileMenu activeLink="/profile/cards" />)
+    render(<ProfileMenu activeLink="/profile/orders" />)
 
-    expect(screen.getByTitle(/my cards/i)).toHaveStyle({
+    expect(screen.getByTitle(/my orders/i)).toHaveStyle({
       background: '#F231A5',
       color: '#FAFAFA'
     })
