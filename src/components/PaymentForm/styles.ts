@@ -3,12 +3,12 @@ import styled, { css } from 'styled-components'
 
 import * as ButtonStyles from 'components/Button/styles'
 
-export const Wrapper = styled.main``
+export const Wrapper = styled.div``
 
 export const Body = styled.div`
   ${({ theme }) => css`
-    padding: ${theme.spacings.small};
     background: ${theme.colors.white};
+    padding: ${theme.spacings.small};
   `}
 `
 
@@ -20,7 +20,6 @@ export const Footer = styled.div`
     padding: ${theme.spacings.small};
     display: flex;
     align-items: center;
-
     ${ButtonStyles.Wrapper} {
       padding-left: ${theme.spacings.xxsmall};
       padding-right: ${theme.spacings.xxsmall};
@@ -28,6 +27,7 @@ export const Footer = styled.div`
     }
   `}
 `
+
 export const Error = styled.p`
   ${({ theme }) => css`
     color: ${theme.colors.red};
@@ -35,5 +35,11 @@ export const Error = styled.p`
     padding-top: ${theme.spacings.xsmall};
     display: flex;
     align-items: center;
+  `}
+`
+
+export const FreeGames = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.colors.black};
   `}
 `
