@@ -13,6 +13,9 @@ import Showcase from 'components/Showcase'
 import Base from 'templates/Base'
 import { Info } from '@styled-icons/material-outlined/Info'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+// require('dotenv').config({ path: './.env.local' })
+
 import * as S from './styles'
 
 export type CartProps = {
