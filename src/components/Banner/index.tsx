@@ -2,6 +2,7 @@ import * as S from './styles'
 import Button from 'components/Button'
 import Ribbon, { RibbonsColors, RibbonsSizes } from 'components/Ribbon'
 import { ReactNode } from 'react'
+import Image from 'next/image'
 
 export type BannnerProps = {
   img: string
@@ -30,7 +31,12 @@ const Banner = ({
         {ribbon}
       </Ribbon>
     )}
-    <S.Image src={img} role="img" aria-label={title} />
+
+    <S.ImageWrapper>
+      <Image src={img} alt={title} layout="fill" objectFit="cover" />
+    </S.ImageWrapper>
+
+    {/* <S.Image src={img} role="img" aria-label={title} /> */}
     <S.Caption>
       <S.Title>{title}</S.Title>
       <S.Subtitle dangerouslySetInnerHTML={{ __html: subtitle }} />

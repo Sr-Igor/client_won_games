@@ -4,6 +4,7 @@ import Link from 'next/link'
 import formatPrice from 'utils/formatPrice'
 import CartButton from 'components/CartButton'
 import WishlistButton from 'components/WishlistButton'
+// import Image from 'next/image'
 
 export type GameCardProps = {
   id: string
@@ -38,6 +39,8 @@ const GameCard = ({
     )}
     <Link href={`/game/${slug}`} passHref>
       <S.ImageBox>
+        {/* TODO: Fix Image */}
+        {/* <Image src={img} alt={title} layout="fill" objectFit="cover" /> */}
         <img src={img} alt={title} />
       </S.ImageBox>
     </Link>

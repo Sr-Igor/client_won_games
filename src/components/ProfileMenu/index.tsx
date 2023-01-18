@@ -3,12 +3,15 @@ import * as S from './styles'
 import { links } from './constants'
 import { ExitToApp } from 'styled-icons/material-outlined'
 import { signOut } from 'next-auth/client'
+import { useRouter } from 'next/router'
 
 export type ProfileMenuProps = {
   activeLink?: string
 }
 
 const ProfileMenu = ({ activeLink }: ProfileMenuProps) => {
+  const push = useRouter()
+
   return (
     <S.Nav>
       {links?.map((link, index) => (
@@ -19,7 +22,14 @@ const ProfileMenu = ({ activeLink }: ProfileMenuProps) => {
           </S.Link>
         </Link>
       ))}
-      <S.Link title={'Sign out'} role="button" onClick={() => signOut()}>
+      <S.Link
+        title={'Sign out'}
+        role="button"
+        onClick={async () => {
+          const data = await signOut({ redirect: false, callbackUrl: '/' })
+          push.push(data.url)
+        }}
+      >
         <ExitToApp size={24} />
         <span>{'Sign out'}</span>
       </S.Link>
