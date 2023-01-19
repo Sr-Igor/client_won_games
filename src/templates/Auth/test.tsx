@@ -2,37 +2,37 @@ import { render, screen } from 'utils/test-utils'
 
 import Auth from '.'
 
-const props = {
-  title: 'Title',
-  children: <h1>Children</h1>
-}
-
 describe('<Auth />', () => {
-  it('should render logos, title, children', () => {
-    render(<Auth {...props} />)
+  it('should render all components and children', () => {
+    render(
+      <Auth title="Auth Title">
+        <input type="text" />
+      </Auth>
+    )
 
-    expect(screen.getAllByRole('img', { name: /won games/i })).toHaveLength(2)
+    // verifiquem se tem 2 logos
+    expect(screen.getAllByRole('img', { name: 'Won Games' })).toHaveLength(2)
 
-    expect(screen.getByRole('heading', { name: /Title/i })).toBeInTheDocument()
-
+    // verifica se tem o heading principal do banner
     expect(
       screen.getByRole('heading', {
         name: /All your favorite games in one place/i
       })
     ).toBeInTheDocument()
 
+    // verifica se tem o subtitle
     expect(
       screen.getByRole('heading', {
-        name: /WON is the best and most complete gaming platform/i
+        name: /won is the best and most complete gaming platform/i
       })
     ).toBeInTheDocument()
 
+    // verifica se tem o title do content
     expect(
-      screen.getByText(/Won Games 2022 © Todos os direitos reservados/i)
+      screen.getByRole('heading', { name: /auth title/i })
     ).toBeInTheDocument()
 
-    expect(
-      screen.getByRole('heading', { name: /Children/i })
-    ).toBeInTheDocument()
+    // verifica se o children tá sendo renderizado
+    expect(screen.getByRole('textbox')).toBeInTheDocument()
   })
 })

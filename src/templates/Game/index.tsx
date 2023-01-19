@@ -1,25 +1,28 @@
-import * as S from './styles'
 import Base from 'templates/Base'
+
 import GameInfo, { GameInfoProps } from 'components/GameInfo'
 import Gallery, { GalleryImageProps } from 'components/Gallery'
-import TextContent from 'components/TextContent'
 import GameDetails, { GameDetailsProps } from 'components/GameDetails'
-import { GameCardProps } from 'components/GameCard'
-import { HighlightProps } from 'components/Highlight'
+import TextContent from 'components/TextContent'
 import Showcase from 'components/Showcase'
 import { Divider } from 'components/Divider'
+import { GameCardProps } from 'components/GameCard'
+import { HighlightProps } from 'components/Highlight'
+
+import * as S from './styles'
+import Image from 'next/image'
 
 export type GameTemplateProps = {
   cover: string
   gameInfo: GameInfoProps
   gallery?: GalleryImageProps[]
-  description?: string
+  description: string
   details: GameDetailsProps
-  upcomingGames?: GameCardProps[]
-  upcomingHighlight?: HighlightProps
-  recommendedGames?: GameCardProps[]
-  recommendedTitle: string
   upcomingTitle: string
+  upcomingGames: GameCardProps[]
+  upcomingHighlight: HighlightProps
+  recommendedTitle: string
+  recommendedGames: GameCardProps[]
 }
 
 const Game = ({
@@ -28,14 +31,16 @@ const Game = ({
   gallery,
   description,
   details,
+  upcomingTitle,
   upcomingGames,
   upcomingHighlight,
-  upcomingTitle,
-  recommendedGames,
-  recommendedTitle
+  recommendedTitle,
+  recommendedGames
 }: GameTemplateProps) => (
   <Base>
-    <S.Cover src={cover} role="image" aria-label="cover" />
+    <S.Cover>
+      <Image src={cover} alt={gameInfo.title} layout="fill" />
+    </S.Cover>
 
     <S.Main>
       <S.SectionGameInfo>
@@ -47,9 +52,7 @@ const Game = ({
       </S.SectionGallery>
 
       <S.SectionDescription>
-        {!!description && (
-          <TextContent title="Description" content={description} />
-        )}
+        <TextContent title="Description" content={description} />
       </S.SectionDescription>
 
       <S.SectionGameDetails>

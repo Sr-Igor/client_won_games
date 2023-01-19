@@ -12,7 +12,7 @@ describe('<Empty />', () => {
     const { container } = render(<Empty {...props} hasLink />)
 
     expect(
-      screen.getByRole('image', {
+      screen.getByRole('img', {
         name: /a gamer in a couch playing videogame/i
       })
     ).toBeInTheDocument()
@@ -25,12 +25,12 @@ describe('<Empty />', () => {
 
     expect(
       screen.getByRole('link', { name: /go back to store/i })
-    ).toBeInTheDocument()
+    ).toHaveAttribute('href', '/')
 
     expect(container.parentElement).toMatchSnapshot()
   })
 
-  it('should render without link', () => {
+  it('should not render link when hasLink is not passed', () => {
     render(<Empty {...props} />)
 
     expect(
