@@ -6,6 +6,7 @@ import Document, {
   DocumentContext
 } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
+import Analytics from 'components/Analytics'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -36,11 +37,12 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="pt-BR">
+      <Html lang="en-US">
         <Head />
         <body>
           <Main />
           <NextScript />
+          <Analytics />
         </body>
       </Html>
     )

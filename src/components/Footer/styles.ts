@@ -30,7 +30,7 @@ export const Column = styled.div`
       color: ${theme.colors.gray};
       text-decoration: none;
       margin-bottom: ${theme.spacings.xxsmall};
-      font-size: ${theme.font.sizes.small};
+      font-size: ${theme.font.sizes.medium};
     }
 
     a:hover {

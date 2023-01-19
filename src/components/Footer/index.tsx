@@ -15,11 +15,11 @@ const Footer = () => (
         <a href="#">+55 37 99986-2366</a>
       </S.Column>
 
-      <S.Column>
+      <S.Column aria-labelledby="social media">
         <Heading color="black" size="small" lineBottom lineColor="secondary">
           Follow us
         </Heading>
-        <nav aria-labelledby="social media">
+        <nav id="social-media">
           <a href="#" target="_blank" rel="noopenner noreferrer">
             Instagram
           </a>
@@ -35,11 +35,11 @@ const Footer = () => (
         </nav>
       </S.Column>
 
-      <S.Column>
+      <S.Column aria-labelledby="resources">
         <Heading color="black" size="small" lineBottom lineColor="secondary">
           Links
         </Heading>
-        <nav aria-labelledby="social media">
+        <nav id="resources">
           <Link href="/">
             <a>Home</a>
           </Link>
@@ -52,7 +52,7 @@ const Footer = () => (
         </nav>
       </S.Column>
 
-      <S.Column>
+      <S.Column aria-label="contact">
         <Heading color="black" size="small" lineBottom lineColor="secondary">
           Location
         </Heading>

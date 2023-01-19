@@ -9,6 +9,7 @@ import { useQueryGames } from 'graphql/queries/games'
 import { useRouter } from 'next/router'
 import { parseQueryStringToFilter, parseQueryStringToWhere } from 'utils/filter'
 import { ParsedUrlQueryInput } from 'querystring'
+import { getImageUrl } from 'utils/getImageUrl'
 
 export type GameTemplateProps = {
   filterItems: ItemProps[]
@@ -71,9 +72,7 @@ const GamesTemplate = ({ filterItems }: GameTemplateProps) => {
                       game.developers[0]?.name ? game.developers[0].name : ''
                     }
                     img={
-                      game.cover?.url
-                        ? `http://localhost:1337${game.cover.url}`
-                        : ''
+                      game.cover?.url ? `${getImageUrl(game.cover.url)}` : ''
                     }
                     price={game.price}
                     slug={game.slug}
