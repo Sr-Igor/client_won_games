@@ -19,15 +19,15 @@ describe('<GameCard />', () => {
     expect(screen.getByText(props.title)).toBeInTheDocument()
     expect(screen.getByText(props.developer)).toBeInTheDocument()
     //TODO: Fix Image
-    // expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
-    //   'src',
-    //   props.img
-    // )
+    expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
+      'src',
+      props.img
+    )
 
-    // expect(screen.getByRole('link', { name: props.title })).toHaveAttribute(
-    //   'href',
-    //   `/game/${props.slug}`
-    // )
+    expect(screen.getByRole('link', { name: props.title })).toHaveAttribute(
+      'href',
+      `/game/${props.slug}`
+    )
   })
 
   it('should render without promotional price', () => {
