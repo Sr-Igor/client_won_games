@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { signIn } from 'next-auth/client'
 import {
   AccountCircle,
   Email,
@@ -13,12 +14,11 @@ import { UsersPermissionsRegisterInput } from 'graphql/generated/globalTypes'
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { MUTATION_REGISTER } from 'graphql/mutations/register'
-import { signIn } from 'next-auth/client'
-import { FieldsErrors, signUpValidate } from 'utils/validation'
+import { FieldErrors, signUpValidate } from 'utils/validations'
 
 const FormSignUp = () => {
   const [formError, setFormError] = useState('')
-  const [fieldError, setFieldError] = useState<FieldsErrors>({})
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
   const [values, setValues] = useState<UsersPermissionsRegisterInput>({
     username: '',
     email: '',
@@ -26,10 +26,10 @@ const FormSignUp = () => {
   })
 
   const [createUser, { error, loading }] = useMutation(MUTATION_REGISTER, {
-    onError: (error) =>
+    onError: (err) =>
       setFormError(
-        error?.graphQLErrors[0]?.extensions?.exception?.data.message[0]
-          .messages[0].message
+        err?.graphQLErrors[0]?.extensions?.exception.data.message[0].messages[0]
+          .message
       ),
     onCompleted: () => {
       !error &&
@@ -47,6 +47,7 @@ const FormSignUp = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    setFormError('')
 
     const errors = signUpValidate(values)
 
@@ -80,15 +81,15 @@ const FormSignUp = () => {
           name="username"
           placeholder="Username"
           type="text"
-          error={fieldError.username}
+          error={fieldError?.username}
           onInputChange={(v) => handleInput('username', v)}
           icon={<AccountCircle />}
         />
         <TextField
           name="email"
           placeholder="Email"
-          type="email"
-          error={fieldError.email}
+          type="text"
+          error={fieldError?.email}
           onInputChange={(v) => handleInput('email', v)}
           icon={<Email />}
         />
@@ -96,7 +97,7 @@ const FormSignUp = () => {
           name="password"
           placeholder="Password"
           type="password"
-          error={fieldError.password}
+          error={fieldError?.password}
           onInputChange={(v) => handleInput('password', v)}
           icon={<Lock />}
         />
@@ -104,7 +105,7 @@ const FormSignUp = () => {
           name="confirm_password"
           placeholder="Confirm password"
           type="password"
-          error={fieldError.confirm_password}
+          error={fieldError?.confirm_password}
           onInputChange={(v) => handleInput('confirm_password', v)}
           icon={<Lock />}
         />

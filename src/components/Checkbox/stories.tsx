@@ -4,30 +4,43 @@ import Checkbox, { CheckboxProps } from '.'
 export default {
   title: 'Form/Checkbox',
   component: Checkbox,
+  parameters: {
+    layout: 'fullscreen',
+    backgrounds: {
+      default: 'won-dark'
+    }
+  },
   argTypes: {
     onCheck: { action: 'checked' }
   }
-} as Meta
+} as Meta<CheckboxProps>
 
 export const Default: Story<CheckboxProps> = (args) => (
-  <div style={{ display: 'flex', flexDirection: 'column' }}>
+  <>
     <div style={{ padding: 10 }}>
-      <Checkbox {...args} label="Action" labelFor="action" isChecked />
+      <Checkbox
+        name="category"
+        label="Action"
+        labelFor="action"
+        isChecked
+        {...args}
+      />
     </div>
     <div style={{ padding: 10 }}>
-      <Checkbox {...args} label="Adventure" labelFor="adventure" />
+      <Checkbox
+        name="category"
+        label="Adventure"
+        labelFor="adventure"
+        {...args}
+      />
     </div>
     <div style={{ padding: 10 }}>
-      <Checkbox {...args} label="Comedy" labelFor="comedy" isChecked />
+      <Checkbox
+        name="category"
+        label="Strategy"
+        labelFor="strategy"
+        {...args}
+      />
     </div>
-    <div style={{ padding: 10 }}>
-      <Checkbox {...args} label="Drama" labelFor="drama" />
-    </div>
-  </div>
+  </>
 )
-
-Default.args = {
-  label: 'Checkbox',
-  labelFor: 'Checkbox',
-  labelColor: 'white'
-}

@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react/types-6-0'
 
 import { GameCardProps } from 'components/GameCard'
 import GameCardSlider from '.'
-import { items } from './mock'
+import items from './mock'
 
 export default {
   title: 'GameCardSlider',
@@ -14,7 +14,7 @@ export default {
       default: 'won-dark'
     }
   }
-} as Meta
+} as Meta<GameCardProps>
 
 export const Default: Story<GameCardProps[]> = (args) => (
   <div style={{ maxWidth: '130rem', margin: '0 auto' }}>

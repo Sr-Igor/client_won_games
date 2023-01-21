@@ -10,12 +10,12 @@ export default {
       default: 'won-dark'
     }
   }
-} as Meta
+} as Meta<MenuProps>
 
 export const Default: Story<MenuProps> = (args) => <Menu {...args} />
 
 export const Logged: Story<MenuProps> = (args) => <Menu {...args} />
 
 Logged.args = {
-  userName: 'Tester'
+  username: 'John Doe'
 }

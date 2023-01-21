@@ -28,6 +28,7 @@ const wrapperModifiers = {
   withIcon: (theme: DefaultTheme) => css`
     svg {
       width: 1.5rem;
+
       & + span {
         margin-left: ${theme.spacings.xxsmall};
       }
@@ -36,6 +37,7 @@ const wrapperModifiers = {
   minimal: (theme: DefaultTheme) => css`
     background: none;
     color: ${theme.colors.primary};
+
     &:hover {
       color: ${darken(0.1, theme.colors.primary)};
     }
@@ -63,7 +65,7 @@ export const Wrapper = styled.button<WrapperProps>`
     text-decoration: none;
 
     &:focus {
-      outline: 1px dashed;
+      box-shadow: 0 0 0 3px ${theme.colors.secondary};
     }
 
     &:hover {
@@ -71,6 +73,7 @@ export const Wrapper = styled.button<WrapperProps>`
         ? 'none'
         : `linear-gradient(180deg, #e35565 0%, #d958a6 50%)`};
     }
+
     ${!!size && wrapperModifiers[size](theme)};
     ${!!fullWidth && wrapperModifiers.fullWidth()};
     ${!!hasIcon && wrapperModifiers.withIcon(theme)};

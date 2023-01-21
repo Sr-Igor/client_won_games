@@ -1,24 +1,30 @@
 import 'session.mock'
 import { render, screen } from 'utils/test-utils'
+import theme from 'styles/theme'
 
 import GameCard from '.'
 
 const props = {
   id: '1',
+  slug: 'population-zero',
   title: 'Population Zero',
   developer: 'Rockstar Games',
   img: 'https://source.unsplash.com/user/willianjusten/300x140',
-  price: 235.0,
-  slug: 'population-zero'
+  price: 235
 }
 
 describe('<GameCard />', () => {
-  it('should render the correctly', () => {
-    render(<GameCard {...props} />)
+  it('should render correctly', () => {
+    const { container } = render(<GameCard {...props} />)
 
-    expect(screen.getByText(props.title)).toBeInTheDocument()
-    expect(screen.getByText(props.developer)).toBeInTheDocument()
-    //TODO: Fix Image
+    expect(
+      screen.getByRole('heading', { name: props.title })
+    ).toBeInTheDocument()
+
+    expect(
+      screen.getByRole('heading', { name: props.developer })
+    ).toBeInTheDocument()
+
     expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
       'src',
       props.img
@@ -28,42 +34,46 @@ describe('<GameCard />', () => {
       'href',
       `/game/${props.slug}`
     )
+
+    expect(screen.getByLabelText(/add to wishlist/i)).toBeInTheDocument()
+
+    expect(container.firstChild).toMatchSnapshot()
   })
 
-  it('should render without promotional price', () => {
+  it('should render price in label', () => {
     render(<GameCard {...props} />)
 
-    expect(screen.queryByText('$999.00')).not.toBeInTheDocument()
-    expect(screen.getByText('$235.00')).not.toHaveStyle({
-      textDecoration: 'line-through'
-    })
-    expect(screen.getByText('$235.00')).toHaveStyle({
-      backgroundColor: '#3CD3C1'
-    })
+    const price = screen.getByText('$235.00')
+
+    expect(price).not.toHaveStyle({ textDecoration: 'line-through' })
+    expect(price).toHaveStyle({ backgroundColor: theme.colors.secondary })
   })
 
-  it('should render promotional price', () => {
-    render(<GameCard {...props} promotionalPrice={999} />)
+  it('should render a line-through in price when promotional', () => {
+    render(<GameCard {...props} promotionalPrice={15} />)
 
-    expect(screen.getByText('$999.00')).toBeInTheDocument()
     expect(screen.getByText('$235.00')).toHaveStyle({
       textDecoration: 'line-through'
     })
-    expect(screen.getByText('$999.00')).toHaveStyle({
-      backgroundColor: '#3CD3C1'
+
+    expect(screen.getByText('$15.00')).not.toHaveStyle({
+      textDecoration: 'line-through'
     })
   })
 
-  it('should render gameCard with ribbon', () => {
+  it('should render Ribbon', () => {
     render(
       <GameCard
         {...props}
-        ribbon="20% sale"
-        ribbonColor="primary"
+        ribbon="My Ribbon"
+        ribbonColor="secondary"
         ribbonSize="small"
       />
     )
+    const ribbon = screen.getByText(/my ribbon/i)
 
-    expect(screen.getByText(/20% sale/i)).toBeInTheDocument()
+    expect(ribbon).toHaveStyle({ backgroundColor: '#3CD3C1' })
+    expect(ribbon).toHaveStyle({ height: '2.6rem', fontSize: '1.2rem' })
+    expect(ribbon).toBeInTheDocument()
   })
 })

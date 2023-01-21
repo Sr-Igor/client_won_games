@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import xor from 'lodash.xor'
 import { Close } from '@styled-icons/material-outlined/Close'
 import { FilterList } from '@styled-icons/material-outlined/FilterList'
 
@@ -9,7 +10,6 @@ import Radio from 'components/Radio'
 
 import * as S from './styles'
 import { ParsedUrlQueryInput } from 'querystring'
-import xor from 'lodash.xor'
 
 export type ItemProps = {
   title: string
@@ -39,6 +39,13 @@ const ExploreSidebar = ({
   const [values, setValues] = useState(initialValues)
   const [isOpen, setIsOpen] = useState(false)
 
+  useEffect(() => {
+    onFilter(values)
+    // this method comes from another template
+    // that we don't have access
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values])
+
   const handleRadio = (name: string, value: string | boolean) => {
     setValues((s) => ({ ...s, [name]: value }))
   }
@@ -52,13 +59,6 @@ const ExploreSidebar = ({
     setIsOpen(false)
   }
 
-  useEffect(() => {
-    onFilter(values)
-    // this method comes from another template
-    // that we don't have access
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values])
-
   return (
     <S.Wrapper isOpen={isOpen}>
       <S.Overlay aria-hidden={isOpen} />
@@ -70,12 +70,7 @@ const ExploreSidebar = ({
       <S.Content>
         {items.map((item) => (
           <S.Items key={item.title}>
-            <Heading
-              lineBottom
-              lineColor="secondary"
-              size="small"
-              color="white"
-            >
+            <Heading lineBottom lineColor="secondary" size="small">
               {item.title}
             </Heading>
 
@@ -86,7 +81,6 @@ const ExploreSidebar = ({
                   name={field.name}
                   label={field.label}
                   labelFor={field.name}
-                  labelColor="white"
                   isChecked={(values[item.name] as string[])?.includes(
                     field.name
                   )}

@@ -10,9 +10,11 @@ export const Form = styled.form`
     > button {
       margin-top: ${theme.spacings.xxlarge};
     }
+
     ${media.greaterThan('medium')`
       grid-template-columns: 1fr 1fr;
       gap: ${theme.spacings.medium};
+
       > button {
         grid-column: 2;
         justify-self: end;
@@ -27,6 +29,6 @@ export const ButtonContainer = styled.div`
   justify-content: flex-end;
 
   ${media.greaterThan('medium')`
-      grid-column: 2;
+    grid-column: 2;
   `}
 `

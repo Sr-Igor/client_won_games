@@ -1,6 +1,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
 import { Settings } from 'react-slick'
 import styled from 'styled-components'
+
 import Slider from '.'
 
 export default {
@@ -17,11 +18,11 @@ const settings: Settings = {
 }
 
 const Slide = styled.div`
-  background-color: #eee;
+  background: gray;
   width: 30rem;
   padding: 10rem 0;
-  border: 0.1rem solid #ccc;
-  color: #999;
+  border: 0.1rem solid red;
+  color: white;
   text-align: center;
 `
 
@@ -37,13 +38,11 @@ export const Horizontal: Story = () => (
 )
 
 const verticalSettings: Settings = {
+  vertical: true,
+  verticalSwiping: true,
   dots: true,
   infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  vertical: true,
-  verticalSwiping: true
+  slidesToShow: 1
 }
 
 export const Vertical: Story = () => (

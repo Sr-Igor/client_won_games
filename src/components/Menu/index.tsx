@@ -1,117 +1,117 @@
-import * as S from './styles'
-import { useState } from 'react'
 import Link from 'next/link'
 
-import { Menu as MenuIcon } from '@styled-icons/material-outlined/Menu'
-// import { ShoppingCart as CartIcon } from '@styled-icons/material-outlined/ShoppingCart'
+import { useState } from 'react'
+import { Menu2 as MenuIcon } from '@styled-icons/remix-fill/Menu2'
 import { Search as SearchIcon } from '@styled-icons/material-outlined/Search'
 import { Close as CloseIcon } from '@styled-icons/material-outlined/Close'
 
-import MediaMatch from 'components/MediaMatch'
-
-import { link } from './constants'
-
-import Logo from 'components/Logo'
 import Button from 'components/Button'
+import Logo from 'components/Logo'
+import MediaMatch from 'components/MediaMatch'
+import * as S from './styles'
 import CartDropdown from 'components/CartDropdown'
 import CartIcon from 'components/CartIcon'
 import UserDropdown from 'components/UserDropdown'
 
 export type MenuProps = {
-  userName?: string | null
+  username?: string | null
   loading?: boolean
 }
 
-const Menu = ({ userName, loading }: MenuProps) => {
+const Menu = ({ username, loading }: MenuProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <S.Wrapper>
+    <S.Wrapper isOpen={isOpen}>
       <MediaMatch lessThan="medium">
-        <S.IconWrapper>
-          <MenuIcon aria-label="Open Menu" onClick={() => setIsOpen(!isOpen)} />
+        <S.IconWrapper onClick={() => setIsOpen(true)}>
+          <MenuIcon aria-label="Open Menu" />
         </S.IconWrapper>
       </MediaMatch>
 
       <S.LogoWrapper>
         <Link href="/" passHref>
           <a>
-            <Logo hiddenText />
+            <Logo hideOnMobile />
           </a>
         </Link>
       </S.LogoWrapper>
+
+      <MediaMatch greaterThan="medium">
+        <S.MenuNav>
+          <Link href="/" passHref>
+            <S.MenuLink>Home</S.MenuLink>
+          </Link>
+          <Link href="/games" passHref>
+            <S.MenuLink>Explore</S.MenuLink>
+          </Link>
+        </S.MenuNav>
+      </MediaMatch>
+
       {!loading && (
         <>
-          <MediaMatch greaterThan="medium">
-            <S.MenuNav>
-              {link.map((link, index) => {
-                if (link.needAuth && !userName) return null
-                return (
-                  <Link key={index} href={link.url} passHref>
-                    <S.MenuLink>{link.label}</S.MenuLink>
-                  </Link>
-                )
-              })}
-            </S.MenuNav>
-          </MediaMatch>
-
-          <div className="rigthContent">
+          <S.MenuGroup>
             <S.IconWrapper>
-              <SearchIcon aria-label="search" />
+              <SearchIcon aria-label="Search" />
             </S.IconWrapper>
-
             <S.IconWrapper>
               <MediaMatch greaterThan="medium">
                 <CartDropdown />
               </MediaMatch>
               <MediaMatch lessThan="medium">
-                <Link href="/cart" passHref>
+                <Link href="/cart">
                   <a>
                     <CartIcon />
                   </a>
                 </Link>
               </MediaMatch>
             </S.IconWrapper>
-
             <MediaMatch greaterThan="medium">
-              {!userName ? (
-                <Link href="sign-in" passHref>
+              {!username ? (
+                <Link href="/sign-in" passHref>
                   <Button as="a">Sign in</Button>
                 </Link>
               ) : (
-                <UserDropdown username={userName} />
+                <UserDropdown username={username} />
               )}
             </MediaMatch>
-          </div>
+          </S.MenuGroup>
 
           <S.MenuFull aria-hidden={!isOpen} isOpen={isOpen}>
             <CloseIcon
-              aria-label="close menu"
+              aria-label="Close Menu"
               onClick={() => setIsOpen(false)}
             />
             <S.MenuNav>
-              {link.map((link, index) => {
-                if (link.needAuth && !userName) return null
-                return (
-                  <Link key={index} href={link.url} passHref>
-                    <S.MenuLink>{link.label}</S.MenuLink>
+              <Link href="/" passHref>
+                <S.MenuLink>Home</S.MenuLink>
+              </Link>
+              <Link href="/games" passHref>
+                <S.MenuLink>Explore</S.MenuLink>
+              </Link>
+
+              {!!username && (
+                <>
+                  <Link href="/profile/me" passHref>
+                    <S.MenuLink>My profile</S.MenuLink>
                   </Link>
-                )
-              })}
+                  <Link href="/wishlist" passHref>
+                    <S.MenuLink>Wishlist</S.MenuLink>
+                  </Link>
+                </>
+              )}
             </S.MenuNav>
 
-            {!userName && (
+            {!username && (
               <S.RegisterBox>
-                <Link href="sign-in" passHref>
-                  <Button fullWidth size="large">
-                    Login now
+                <Link href="/sign-in" passHref>
+                  <Button fullWidth size="large" as="a">
+                    Sign in
                   </Button>
                 </Link>
                 <span>or</span>
-                <Link href="sign-up" passHref>
-                  <S.CreateAccount href="#" title="Sign Up">
-                    Sign up
-                  </S.CreateAccount>
+                <Link href="/sign-up" passHref>
+                  <S.CreateAccount title="Sign Up">Sign Up</S.CreateAccount>
                 </Link>
               </S.RegisterBox>
             )}

@@ -1,5 +1,5 @@
 import { render, screen } from 'utils/test-utils'
-import Loader from './index'
+import Loader from '.'
 
 describe('<Loader />', () => {
   it('Should render correctly', () => {

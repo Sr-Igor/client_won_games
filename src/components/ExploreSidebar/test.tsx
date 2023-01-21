@@ -1,6 +1,6 @@
+import { render, screen } from 'utils/test-utils'
 import userEvent from '@testing-library/user-event'
 import { css } from 'styled-components'
-import { render, screen } from 'utils/test-utils'
 
 import ExploreSidebar from '.'
 import { Overlay } from './styles'
@@ -44,10 +44,7 @@ describe('<ExploreSidebar />', () => {
       <ExploreSidebar
         items={items}
         onFilter={jest.fn}
-        initialValues={{
-          platforms: ['windows', 'linux'],
-          sort_by: 'low-to-high'
-        }}
+        initialValues={{ platforms: ['windows'], sort_by: 'low-to-high' }}
       />
     )
 
@@ -62,16 +59,13 @@ describe('<ExploreSidebar />', () => {
     render(
       <ExploreSidebar
         items={items}
-        initialValues={{
-          platforms: ['windows', 'linux'],
-          sort_by: 'low-to-high'
-        }}
+        initialValues={{ platforms: ['windows'], sort_by: 'low-to-high' }}
         onFilter={onFilter}
       />
     )
 
     expect(onFilter).toBeCalledWith({
-      platforms: ['windows', 'linux'],
+      platforms: ['windows'],
       sort_by: 'low-to-high'
     })
   })
@@ -85,6 +79,7 @@ describe('<ExploreSidebar />', () => {
     userEvent.click(screen.getByLabelText(/linux/i))
     userEvent.click(screen.getByLabelText(/low to high/i))
 
+    // 1st render (initialValues) + 3 clicks
     expect(onFilter).toHaveBeenCalledTimes(4)
 
     expect(onFilter).toBeCalledWith({

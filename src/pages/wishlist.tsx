@@ -5,7 +5,7 @@ import { gamesMapper, highlightMapper } from 'utils/mappers'
 
 import Wishlist, { WishlistTemplateProps } from 'templates/Wishlist'
 
-import { items as gamesMock } from 'components/GameCardSlider/mock'
+import gamesMock from 'components/GameCardSlider/mock'
 import protectedRoutes from 'utils/protected-routes'
 import { GetServerSidePropsContext } from 'next'
 import {
@@ -22,11 +22,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await protectedRoutes(context)
   const apolloClient = initializeApollo(null, session)
 
-  if (!session) {
-    return {
-      props: {}
-    }
-  }
+  if (!session) return { props: {} }
 
   await apolloClient.query<QueryWishlist, QueryWishlistVariables>({
     query: QUERY_WISHLIST,

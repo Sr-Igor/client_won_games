@@ -30,6 +30,7 @@ export const ImageBox = styled.a`
     0% {
       background-position: -40rem 0;
     }
+
     100% {
       background-position: 40rem 0;
     }
@@ -76,6 +77,7 @@ export const FavButton = styled.div`
     right: -1rem;
     top: -0.5rem;
     cursor: pointer;
+
     svg {
       width: 2.5rem;
     }
@@ -107,7 +109,7 @@ const priceModifiers = {
   promotional: (theme: DefaultTheme) => css`
     color: ${theme.colors.gray};
     text-decoration: line-through;
-    margin-right: ${theme.spacings.xsmall};
+    margin-right: ${theme.spacings.xxsmall};
   `
 }
 
@@ -117,7 +119,8 @@ export const Price = styled.div<PriceProps>`
     font-weight: ${theme.font.bold};
     height: 3rem;
     align-items: center;
-    ${!isPromotional && priceModifiers.default(theme)}
-    ${isPromotional && priceModifiers.promotional(theme)}
+
+    ${!isPromotional && priceModifiers.default(theme)};
+    ${isPromotional && priceModifiers.promotional(theme)};
   `}
 `

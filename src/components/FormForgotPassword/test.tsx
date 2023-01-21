@@ -22,13 +22,10 @@ describe('<FormForgotPassword />', () => {
     ).toBeInTheDocument()
   })
 
-  it('it should validate email field', async () => {
+  it('should validate the email', async () => {
     render(<FormForgotPassword />)
 
-    await userEvent.type(
-      screen.getByPlaceholderText(/email/i),
-      'valid@email.com'
-    )
+    userEvent.type(screen.getByPlaceholderText(/email/i), 'valid@email.com')
 
     userEvent.click(screen.getByRole('button', { name: /send email/i }))
 
@@ -37,10 +34,10 @@ describe('<FormForgotPassword />', () => {
     ).toBeInTheDocument()
   })
 
-  it('it should show invalid email', async () => {
+  it('should show an invalid email error', async () => {
     render(<FormForgotPassword />)
 
-    await userEvent.type(screen.getByPlaceholderText(/email/i), 'invalid')
+    userEvent.type(screen.getByPlaceholderText(/email/i), 'invalid')
 
     userEvent.click(screen.getByRole('button', { name: /send email/i }))
 
@@ -49,13 +46,10 @@ describe('<FormForgotPassword />', () => {
     ).toBeInTheDocument()
   })
 
-  it('it should show nonexistent email', async () => {
+  it('should show an inexistent email error', async () => {
     render(<FormForgotPassword />)
 
-    await userEvent.type(
-      screen.getByPlaceholderText(/email/i),
-      'false@email.com'
-    )
+    userEvent.type(screen.getByPlaceholderText(/email/i), 'false@email.com')
 
     userEvent.click(screen.getByRole('button', { name: /send email/i }))
 
@@ -64,10 +58,10 @@ describe('<FormForgotPassword />', () => {
     ).toBeInTheDocument()
   })
 
-  it('should autofill email when query is provided', () => {
-    query = { email: 'valid@email,com' }
-
+  it('should autofill if comes via logged user', () => {
+    query = { email: 'valid@email.com' }
     render(<FormForgotPassword />)
-    expect(screen.getByPlaceholderText(/email/i)).toHaveValue('valid@email,com')
+
+    expect(screen.getByPlaceholderText(/email/i)).toHaveValue('valid@email.com')
   })
 })

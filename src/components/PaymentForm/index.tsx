@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
@@ -7,12 +8,12 @@ import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
 import { useCart } from 'hooks/use-cart'
 import Button from 'components/Button'
 import Heading from 'components/Heading'
-import Link from 'next/link'
 
 import * as S from './styles'
 import { createPayment, createPaymentIntent } from 'utils/stripe/methods'
-import { Session } from 'next-auth'
+
 import { FormLoading } from 'components/Form'
+import { Session } from 'next-auth'
 
 type PaymentFormProps = {
   session: Session
@@ -37,8 +38,9 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
         const data = await createPaymentIntent({
           items,
           token: session.jwt as string
-        }) // se eu receber freeGames: true => setFreeGames
+        })
 
+        // se eu receber freeGames: true => setFreeGames
         // faço o fluxo de jogo gratuito
         if (data.freeGames) {
           setFreeGames(true)
@@ -153,7 +155,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
           <Button
             fullWidth
             icon={loading ? <FormLoading /> : <ShoppingCart />}
-            disabled={!freeGames && (disabled || !!error)}
+            disabled={!freeGames && (disabled || !!error || loading)}
           >
             {!loading && <span>Buy now</span>}
           </Button>

@@ -14,6 +14,7 @@ export const Title = styled.div`
 
 export const Content = styled.div`
   ${({ theme }) => css`
+    cursor: auto;
     display: flex;
     flex-direction: column;
     background: ${theme.colors.white};
@@ -35,36 +36,6 @@ export const Content = styled.div`
   `}
 `
 
-type WrapperProps = {
-  isOpen?: boolean
-}
-
-const wrapperModifiers = {
-  open: () => css`
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-  `,
-  close: () => css`
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-2rem);
-  `
-}
-
-export const Wrapper = styled.div<WrapperProps>`
-  ${({ theme, isOpen }) => css`
-    position: relative;
-    width: max-content;
-    ${Content} ,
-    ${Overlay} {
-      transition: transform 0.2s ease-in, opacity ${theme.transition.default};
-      ${isOpen && wrapperModifiers.open()}
-      ${!isOpen && wrapperModifiers.close()}
-    }
-  `}
-`
-
 export const Overlay = styled.div`
   ${({ theme }) => css`
     background: rgba(0, 0, 0, 0.5);
@@ -74,5 +45,39 @@ export const Overlay = styled.div`
     left: 0;
     right: 0;
     z-index: ${theme.layers.overlay};
+  `}
+`
+
+type WrapperProps = {
+  isOpen?: boolean
+}
+
+const wrapperModifiers = {
+  open: () => css`
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    visibility: visible;
+  `,
+  close: () => css`
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-2rem);
+    visibility: hidden;
+  `
+}
+
+export const Wrapper = styled.div<WrapperProps>`
+  ${({ theme, isOpen }) => css`
+    position: relative;
+    width: max-content;
+
+    ${Content},
+    ${Overlay} {
+      transition: transform 0.2s ease-in, opacity ${theme.transition.default};
+
+      ${isOpen && wrapperModifiers.open()}
+      ${!isOpen && wrapperModifiers.close()}
+    }
   `}
 `

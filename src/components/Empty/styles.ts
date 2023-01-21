@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+
   img {
     object-fit: cover;
   }

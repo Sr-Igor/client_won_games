@@ -8,12 +8,13 @@ export default {
     backgrounds: {
       default: 'won-dark'
     }
-  },
-  args: {
-    title: 'Your wishlist is empty',
-    description: 'Games added to your wishlist will appear here',
-    hasLink: true
   }
-} as Meta
+} as Meta<EmptyProps>
 
 export const Default: Story<EmptyProps> = (args) => <Empty {...args} />
+
+Default.args = {
+  title: 'Your wishlist is empty',
+  description: 'Games added to your wishlist will appear here',
+  hasLink: true
+}

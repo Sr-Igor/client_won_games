@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 import {
   CheckCircleOutline,
@@ -14,17 +15,15 @@ import {
 } from 'components/Form'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
-import { FieldsErrors, forgotPasswordValidate } from 'utils/validation'
-import { useRouter } from 'next/router'
+
+import { FieldErrors, forgotValidate } from 'utils/validations'
 
 const FormForgotPassword = () => {
-  const [success, setSuccess] = useState(false)
   const { query } = useRouter()
+  const [success, setSuccess] = useState(false)
   const [formError, setFormError] = useState('')
-  const [fieldError, setFieldError] = useState<FieldsErrors>({})
-  const [values, setValues] = useState({
-    email: (query.email as string) || ''
-  })
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
+  const [values, setValues] = useState({ email: (query.email as string) || '' })
   const [loading, setLoading] = useState(false)
 
   const handleInput = (field: string, value: string) => {
@@ -35,7 +34,7 @@ const FormForgotPassword = () => {
     event.preventDefault()
     setLoading(true)
 
-    const errors = forgotPasswordValidate(values)
+    const errors = forgotValidate(values)
 
     if (Object.keys(errors).length) {
       setFieldError(errors)
@@ -45,7 +44,7 @@ const FormForgotPassword = () => {
 
     setFieldError({})
 
-    //Send post request to forgot password
+    // enviar um post para /forgot-password pedindo um email
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`,
       {
@@ -62,11 +61,9 @@ const FormForgotPassword = () => {
 
     if (data.error) {
       setFormError(data.message[0].messages[0].message)
-      return
+    } else {
+      setSuccess(true)
     }
-
-    setFormError('')
-    setSuccess(true)
   }
 
   return (
@@ -77,27 +74,28 @@ const FormForgotPassword = () => {
           You just received an email!
         </FormSuccess>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <TextField
-            name="email"
-            placeholder="Email"
-            type="email"
-            initialValue={query.email as string}
-            error={fieldError.email}
-            onInputChange={(v) => handleInput('email', v)}
-            icon={<Email />}
-          />
+        <>
+          {!!formError && (
+            <FormError>
+              <ErrorOutline /> {formError}
+            </FormError>
+          )}
+          <form onSubmit={handleSubmit}>
+            <TextField
+              name="email"
+              placeholder="Email"
+              type="text"
+              error={fieldError?.email}
+              initialValue={query.email as string}
+              onInputChange={(v) => handleInput('email', v)}
+              icon={<Email />}
+            />
 
-          <Button type="submit" size="large" fullWidth disabled={loading}>
-            {loading ? <FormLoading /> : <span>Send email</span>}
-          </Button>
-        </form>
-      )}
-
-      {!!formError && (
-        <FormError>
-          <ErrorOutline /> {formError}
-        </FormError>
+            <Button type="submit" size="large" fullWidth disabled={loading}>
+              {loading ? <FormLoading /> : <span>Send email</span>}
+            </Button>
+          </form>
+        </>
       )}
     </FormWrapper>
   )

@@ -1,8 +1,8 @@
 export default {
-  developer: 'Rockstar Games',
+  developer: 'Different Tales',
   releaseDate: '2020-11-21T23:00:00',
-  platforms: ['windows', 'linux', 'mac'],
-  publisher: 'Rockstar Games',
+  platforms: ['windows', 'mac', 'linux'],
+  publisher: 'Walkabout',
   rating: 'BR0',
-  genres: ['Action', 'Adventure']
+  genres: ['Role-playing']
 }

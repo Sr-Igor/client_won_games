@@ -3,10 +3,6 @@ import { useCart } from 'hooks/use-cart'
 
 import * as S from './styles'
 
-export type CartIconProps = {
-  quantity?: number
-}
-
 const CartIcon = () => {
   const { quantity } = useCart()
 

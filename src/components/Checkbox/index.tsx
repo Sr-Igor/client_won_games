@@ -1,41 +1,42 @@
-import { InputHTMLAttributes, useEffect, useState } from 'react'
+import { InputHTMLAttributes, useState } from 'react'
 import * as S from './styles'
 
 export type CheckboxProps = {
+  onCheck?: (status: boolean) => void
+  isChecked?: boolean
   label?: string
   labelFor?: string
   labelColor?: 'white' | 'black'
-  isChecked?: boolean
-  onCheck?: (status: boolean) => void
+  value?: string | ReadonlyArray<string> | number
 } & InputHTMLAttributes<HTMLInputElement>
 
 const Checkbox = ({
-  label,
-  labelFor = '',
-  labelColor = 'black',
   onCheck,
   isChecked = false,
+  label,
+  labelFor = '',
+  labelColor = 'white',
+  value,
   ...props
 }: CheckboxProps) => {
-  const [checked, setChecked] = useState(false)
+  // controlled component (state)
+  const [checked, setChecked] = useState(isChecked)
 
   const onChange = () => {
-    const status = !checked
+    const status = !checked // true => false => true
     setChecked(status)
+
     !!onCheck && onCheck(status)
   }
-
-  useEffect(() => {
-    setChecked(isChecked)
-  }, [isChecked])
 
   return (
     <S.Wrapper>
       <S.Input
-        type="checkbox"
         id={labelFor}
-        checked={checked}
+        type="checkbox"
         onChange={onChange}
+        checked={checked}
+        value={value}
         {...props}
       />
       {!!label && (

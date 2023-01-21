@@ -8,19 +8,8 @@ export default {
     backgrounds: {
       default: 'won-dark'
     }
-  },
-  args: {
-    activeLink: '/profile/me'
-  },
-  argTypes: {
-    activeLink: {
-      control: {
-        type: 'select',
-        options: ['/profile/me', '/profile/cards', '/profile/orders']
-      }
-    }
   }
-} as Meta
+} as Meta<ProfileMenuProps>
 
 export const Default: Story<ProfileMenuProps> = (args) => (
   <ProfileMenu {...args} />

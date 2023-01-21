@@ -91,6 +91,11 @@ exports[`<CartList /> should render the cart list 1`] = `
   align-self: start;
 }
 
+.c1 {
+  max-height: 40rem;
+  overflow-y: auto;
+}
+
 .c9 {
   background: #eee;
   color: #030517;
@@ -113,11 +118,6 @@ exports[`<CartList /> should render the cart list 1`] = `
 
 .c10 {
   color: #F231A5;
-}
-
-.c1 {
-  max-height: 40rem;
-  overflow-y: auto;
 }
 
 @media (min-width:768px) {
@@ -151,14 +151,16 @@ exports[`<CartList /> should render the cart list 1`] = `
   }
 }
 
-<main
+<div
   class="c0"
+  data-cy="cart-list"
 >
   <div
     class="c1"
   >
     <div
       class="c2"
+      data-cy="game-item"
     >
       <div
         class="c3"
@@ -168,7 +170,9 @@ exports[`<CartList /> should render the cart list 1`] = `
         >
           <img
             alt="Red Dead Redemption 2"
+            height="70"
             src="https://source.unsplash.com/user/willianjusten/151x70"
+            width="150"
           />
         </div>
         <div
@@ -193,6 +197,7 @@ exports[`<CartList /> should render the cart list 1`] = `
     </div>
     <div
       class="c2"
+      data-cy="game-item"
     >
       <div
         class="c3"
@@ -202,7 +207,9 @@ exports[`<CartList /> should render the cart list 1`] = `
         >
           <img
             alt="Borderlands 3"
+            height="70"
             src="https://source.unsplash.com/user/willianjusten/151x70"
+            width="150"
           />
         </div>
         <div
@@ -238,5 +245,5 @@ exports[`<CartList /> should render the cart list 1`] = `
       R$ 330,00
     </span>
   </div>
-</main>
+</div>
 `

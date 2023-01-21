@@ -20,6 +20,7 @@ export const Footer = styled.div`
     padding: ${theme.spacings.small};
     display: flex;
     align-items: center;
+
     ${ButtonStyles.Wrapper} {
       padding-left: ${theme.spacings.xxsmall};
       padding-right: ${theme.spacings.xxsmall};

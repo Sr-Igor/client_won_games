@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
+
 import * as RibbonStyles from 'components/Ribbon/styles'
 
 export const Wrapper = styled.main`
@@ -8,6 +9,7 @@ export const Wrapper = styled.main`
   ${media.lessThan('large')`
     ${RibbonStyles.Wrapper} {
       right: 0;
+
       &::before {
         display: none;
       }
@@ -39,11 +41,11 @@ export const Caption = styled.div`
     padding: ${theme.spacings.small};
 
     ${media.greaterThan('medium')`
-      position: absolute;
-      bottom: 0;
-      padding: ${theme.spacings.large};
       border-radius: 0 0 ${theme.border.radius} ${theme.border.radius};
       padding: ${theme.spacings.large};
+      position: absolute;
+      bottom: 0;
+      left: 0;
     `}
   `}
 `

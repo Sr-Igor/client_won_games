@@ -8,20 +8,17 @@ import { Email, Lock, ErrorOutline } from '@styled-icons/material-outlined'
 import { FormLink, FormWrapper, FormLoading, FormError } from 'components/Form'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
-import { FieldsErrors, signInValidate } from 'utils/validation'
 
 import * as S from './styles'
+import { FieldErrors, signInValidate } from 'utils/validations'
 
 const FormSignIn = () => {
   const [formError, setFormError] = useState('')
-  const [fieldError, setFieldError] = useState<FieldsErrors>({})
-  const [values, setValues] = useState({
-    email: '',
-    password: ''
-  })
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
+  const [values, setValues] = useState({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
-  const { push, query } = router
+  const routes = useRouter()
+  const { push, query } = routes
 
   const handleInput = (field: string, value: string) => {
     setValues((s) => ({ ...s, [field]: value }))
@@ -54,7 +51,8 @@ const FormSignIn = () => {
 
     setLoading(false)
 
-    setFormError('Email or password is invalid')
+    // jogar o erro
+    setFormError('username or password is invalid')
   }
 
   return (
@@ -69,7 +67,7 @@ const FormSignIn = () => {
           name="email"
           placeholder="Email"
           type="email"
-          error={fieldError.email}
+          error={fieldError?.email}
           onInputChange={(v) => handleInput('email', v)}
           icon={<Email />}
         />
@@ -77,7 +75,7 @@ const FormSignIn = () => {
           name="password"
           placeholder="Password"
           type="password"
-          error={fieldError.password}
+          error={fieldError?.password}
           onInputChange={(v) => handleInput('password', v)}
           icon={<Lock />}
         />

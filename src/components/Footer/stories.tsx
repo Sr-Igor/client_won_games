@@ -7,12 +7,7 @@ export default {
 } as Meta
 
 export const Default: Story = () => (
-  <div
-    style={{
-      maxWidth: '130rem',
-      margin: '0 auto'
-    }}
-  >
+  <div style={{ maxWidth: '130rem', margin: '0 auto' }}>
     <Footer />
   </div>
 )

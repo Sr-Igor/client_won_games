@@ -3,12 +3,7 @@ import FormProfile from '.'
 
 export default {
   title: 'Form/FormProfile',
-  component: FormProfile,
-  parameters: {
-    backgrounds: {
-      default: 'won-light'
-    }
-  }
+  component: FormProfile
 } as Meta
 
 export const Default: Story = () => (

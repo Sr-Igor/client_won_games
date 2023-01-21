@@ -1,7 +1,6 @@
-import { waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from 'utils/test-utils'
 import userEvent from '@testing-library/user-event'
 import theme from 'styles/theme'
-import { render, screen } from 'utils/test-utils'
 
 import Radio from '.'
 
@@ -58,7 +57,8 @@ describe('<Radio />', () => {
 
     expect(document.body).toHaveFocus()
 
-    screen.getByLabelText('Radio').focus()
+    userEvent.tab()
+
     expect(radio).toHaveFocus()
   })
 })

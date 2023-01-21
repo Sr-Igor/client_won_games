@@ -28,6 +28,7 @@ describe('<FormSignUp />', () => {
         <FormSignUp />
       </MockedProvider>
     )
+
     expect(screen.getByRole('link', { name: /sign in/i })).toBeInTheDocument()
     expect(screen.getByText(/already have an account\?/i)).toBeInTheDocument()
   })

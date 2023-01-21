@@ -1,6 +1,8 @@
-import Game, { GameTemplateProps } from 'templates/Game'
 import { useRouter } from 'next/router'
 import { initializeApollo } from 'utils/apollo'
+
+import Game, { GameTemplateProps } from 'templates/Game'
+
 import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
 import { GET_GAMES, QUERY_GAME_BY_SLUG } from 'graphql/queries/games'
 import {
@@ -23,34 +25,28 @@ const apolloClient = initializeApollo()
 export default function Index(props: GameTemplateProps) {
   const router = useRouter()
 
-  // If the page is not generated yet, this will be displayed
+  // se a rota não tiver sido gerada ainda
+  // você pode mostrar um loading
+  // uma tela de esqueleto
   if (router.isFallback) return null
 
   return <Game {...props} />
 }
 
-// Get existing props from the template
+// gerar em build time (/game/bla, /bame/foo ...)
 export async function getStaticPaths() {
   const { data } = await apolloClient.query<QueryGames, QueryGamesVariables>({
     query: GET_GAMES,
-    variables: {
-      limit: 9,
-      start: 0,
-      sort: 'id:desc'
-    }
+    variables: { limit: 9 }
   })
 
   const paths = data.games.map(({ slug }) => ({
     params: { slug }
   }))
 
-  return {
-    paths,
-    fallback: true
-  }
+  return { paths, fallback: true }
 }
 
-// Generate in build time
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   // Get game data
   const { data } = await apolloClient.query<
@@ -58,11 +54,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     QueryGameBySlugVariables
   >({
     query: QUERY_GAME_BY_SLUG,
-    variables: { slug: `${params?.slug}` }
+    variables: { slug: `${params?.slug}` },
+    fetchPolicy: 'no-cache'
   })
 
   if (!data.games.length) {
-    return { notFound: true, props: {} }
+    return { notFound: true }
   }
 
   const game = data.games[0]
@@ -77,11 +74,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { data: upcoming } = await apolloClient.query<
     QueryUpcoming,
     QueryUpcomingVariables
-  >({
-    query: QUERY_UPCOMING,
-    variables: { date: TODAY },
-    fetchPolicy: 'no-cache'
-  })
+  >({ query: QUERY_UPCOMING, variables: { date: TODAY } })
 
   return {
     revalidate: 60,

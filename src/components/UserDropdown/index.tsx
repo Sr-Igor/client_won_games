@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { signOut } from 'next-auth/client'
 import {
   AccountCircle,
   FavoriteBorder,
@@ -9,15 +11,13 @@ import { ChevronDown } from '@styled-icons/boxicons-regular/ChevronDown'
 import Dropdown from 'components/Dropdown'
 
 import * as S from './styles'
-import { signOut } from 'next-auth/client'
-import { useRouter } from 'next/router'
 
 export type UserDropdownProps = {
   username: string
 }
 
 const UserDropdown = ({ username }: UserDropdownProps) => {
-  const push = useRouter()
+  const { push } = useRouter()
 
   return (
     <Dropdown
@@ -48,7 +48,7 @@ const UserDropdown = ({ username }: UserDropdownProps) => {
           title="Sign out"
           onClick={async () => {
             const data = await signOut({ redirect: false, callbackUrl: '/' })
-            push.push(data.url)
+            push(data.url)
           }}
         >
           <ExitToApp />

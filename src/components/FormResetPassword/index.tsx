@@ -2,23 +2,20 @@ import { useState } from 'react'
 import { signIn } from 'next-auth/client'
 import { useRouter } from 'next/router'
 
-import { ErrorOutline, Lock } from '@styled-icons/material-outlined'
+import { Lock, ErrorOutline } from '@styled-icons/material-outlined'
 
 import { FormWrapper, FormLoading, FormError } from 'components/Form'
 import Button from 'components/Button'
 import TextField from 'components/TextField'
-import { FieldsErrors, resetPasswordValidate } from 'utils/validation'
 
-const FormRestPassword = () => {
+import { FieldErrors, resetValidate } from 'utils/validations'
+
+const FormResetPassword = () => {
   const [formError, setFormError] = useState('')
-  const [fieldError, setFieldError] = useState<FieldsErrors>({})
-  const [values, setValues] = useState({
-    password: '',
-    confirm_password: ''
-  })
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
+  const [values, setValues] = useState({ password: '', confirm_password: '' })
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
-  const { query } = router
+  const { query } = useRouter()
 
   const handleInput = (field: string, value: string) => {
     setValues((s) => ({ ...s, [field]: value }))
@@ -28,7 +25,7 @@ const FormRestPassword = () => {
     event.preventDefault()
     setLoading(true)
 
-    const errors = resetPasswordValidate(values)
+    const errors = resetValidate(values)
 
     if (Object.keys(errors).length) {
       setFieldError(errors)
@@ -38,7 +35,6 @@ const FormRestPassword = () => {
 
     setFieldError({})
 
-    // Reset password
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,
       {
@@ -49,7 +45,7 @@ const FormRestPassword = () => {
         body: JSON.stringify({
           password: values.password,
           passwordConfirmation: values.confirm_password,
-          code: query?.code as string
+          code: query.code
         })
       }
     )
@@ -80,7 +76,7 @@ const FormRestPassword = () => {
           name="password"
           placeholder="Password"
           type="password"
-          error={fieldError.password}
+          error={fieldError?.password}
           onInputChange={(v) => handleInput('password', v)}
           icon={<Lock />}
         />
@@ -88,7 +84,7 @@ const FormRestPassword = () => {
           name="confirm_password"
           placeholder="Confirm password"
           type="password"
-          error={fieldError.confirm_password}
+          error={fieldError?.confirm_password}
           onInputChange={(v) => handleInput('confirm_password', v)}
           icon={<Lock />}
         />
@@ -101,4 +97,4 @@ const FormRestPassword = () => {
   )
 }
 
-export default FormRestPassword
+export default FormResetPassword

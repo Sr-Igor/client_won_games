@@ -14,28 +14,28 @@ const wrapperModifiers = {
     height: 5.9rem;
   `,
 
-  hideText: () => css`
+  hideOnMobile: () => css`
     ${media.lessThan('medium')`
-    width: 5.8rem;
-    height: 4.5rem;
-
-    svg {
-
+      width: 5.8rem;
       height: 4.5rem;
-      pointer-events: none;
-    }
 
-    .text {
-      display: none;
-    }
-  `}
+      svg {
+        height: 4.5rem;
+        pointer-events: none;
+      }
+
+      .text {
+        display: none;
+      }
+    `}
   `
 }
 
-export const Wrapper = styled.main<LogoProps>`
-  ${({ theme, color, size, hiddenText }) => css`
+export const Wrapper = styled.div<LogoProps>`
+  ${({ theme, color, size, hideOnMobile }) => css`
     color: ${theme.colors[color!]};
+
     ${!!size && wrapperModifiers[size]}
-    ${!!hiddenText && wrapperModifiers.hideText}
+    ${hideOnMobile && wrapperModifiers.hideOnMobile}
   `}
 `

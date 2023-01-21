@@ -9,6 +9,7 @@ export const Nav = styled.nav`
     ${media.greaterThan('medium')`
       flex-direction: column;
       border: 0;
+
       a:not(:last-child) {
         border-bottom: 0.1rem solid ${theme.colors.lightGray};
       }
@@ -18,44 +19,48 @@ export const Nav = styled.nav`
 
 const linkModifiers = {
   default: (theme: DefaultTheme) => css`
-    color: ${theme.colors.black};
     background: ${theme.colors.white};
+    color: ${theme.colors.black};
   `,
 
   active: (theme: DefaultTheme) => css`
-    color: ${theme.colors.white};
     background: ${theme.colors.primary};
+    color: ${theme.colors.white};
   `
 }
 
 type LinkProps = {
-  activeLink?: boolean
+  isActive?: boolean
 }
 
 export const Link = styled.a<LinkProps>`
-  ${({ theme, activeLink }) => css`
+  ${({ theme, isActive }) => css`
+    cursor: pointer;
     text-decoration: none;
     display: flex;
     align-items: center;
     padding: ${theme.spacings.xsmall} ${theme.spacings.small};
     transition: background, color, ${theme.transition.default};
-    cursor: pointer;
+
     &:hover {
       background: ${theme.colors.primary};
       color: ${theme.colors.white};
     }
+
     > span {
       margin-left: ${theme.spacings.xsmall};
     }
+
     ${media.lessThan('medium')`
       justify-content: center;
       flex: 1;
+
       > span {
         display: none;
       }
     `}
 
-    ${!activeLink && linkModifiers.default(theme)}
-    ${activeLink && linkModifiers.active(theme)}
+    ${!isActive && linkModifiers.default(theme)};
+    ${isActive && linkModifiers.active(theme)};
   `}
 `

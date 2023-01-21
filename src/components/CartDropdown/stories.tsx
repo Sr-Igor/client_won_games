@@ -20,9 +20,11 @@ export const Default: Story = (args) => (
 )
 
 Default.args = {
-  cartContextValue: { items },
-  quantity: items.length,
-  total: 'R$ 330,00'
+  cartContextValue: {
+    items,
+    quantity: items.length,
+    total: 'R$ 300,00'
+  }
 }
 
 export const Empty: Story = () => (

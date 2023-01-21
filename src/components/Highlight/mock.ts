@@ -1,7 +1,7 @@
-export const item = {
-  title: 'Heading 1',
-  subtitle: 'Heading 2',
+export default {
+  title: 'Read Dead is back!',
+  subtitle: 'Come see John’s new adventures',
+  backgroundImage: '/img/red-dead-img.jpg',
   buttonLabel: 'Buy now',
-  buttonLink: '/rdr2',
-  backgroundImage: '/img/red-dead-img.jpg'
+  buttonLink: '/games/rdr2'
 }

@@ -1,7 +1,7 @@
 export default {
   id: '1',
-  title: 'GameInfo',
-  price: 235,
+  title: 'Borderlands 3',
+  price: 215,
   description:
-    'Experience the evolution of the famous battle royale game. Squad up and compete to be the last one standing in Battle Royale, or use your imagination to build your dream Fortnite in Creative.'
+    'Experience the epic space strategy games that redefined the RTS genre. Control your fleet and build an armada across more than 30 single-player missions.'
 }

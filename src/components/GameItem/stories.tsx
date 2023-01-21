@@ -6,10 +6,10 @@ export default {
   component: GameItem,
   args: {
     img: 'https://source.unsplash.com/user/willianjusten/151x70',
-    title: 'Population Zero',
-    price: 'R$ 235,00'
+    title: 'Red Dead Redemption 2',
+    price: 'R$ 215,00'
   }
-} as Meta
+} as Meta<GameItemProps>
 
 export const Default: Story<GameItemProps> = (args) => <GameItem {...args} />
 

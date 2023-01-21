@@ -2,8 +2,8 @@ import 'session.mock'
 import 'match-media-mock'
 import { render, screen } from 'utils/test-utils'
 
-import { items as gamesMock } from 'components/GameCardSlider/mock'
-import { item as highlightMock } from 'components/Highlight/mock'
+import gamesMock from 'components/GameCardSlider/mock'
+import highlightMock from 'components/Highlight/mock'
 
 import Showcase from '.'
 
@@ -21,7 +21,9 @@ describe('<Showcase />', () => {
       screen.getByRole('heading', { name: /most popular/i })
     ).toBeInTheDocument()
 
-    expect(screen.getByRole('heading', { name: highlightMock.title }))
+    expect(
+      screen.getByRole('heading', { name: highlightMock.title })
+    ).toBeInTheDocument()
 
     expect(
       screen.getByRole('heading', { name: gamesMock[0].title })

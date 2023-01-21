@@ -1,10 +1,12 @@
 import { render, screen } from 'utils/test-utils'
+
 import MediaMatch from '.'
 
 describe('<MediaMatch />', () => {
   let desktopHeading: Element
   let mobileHeading: Element
 
+  // hook tests
   beforeEach(() => {
     render(
       <>

@@ -13,9 +13,11 @@ export const Content = styled.div`
     gap: ${theme.spacings.xsmall};
     grid-template-columns: repeat(2, 1fr);
     margin-top: ${theme.spacings.small};
+
     ${media.greaterThan('medium')`
       grid-template-columns: repeat(3, 1fr);
     `}
+
     ${media.greaterThan('large')`
       grid-template-columns: repeat(6, 1fr);
     `}
@@ -40,14 +42,13 @@ export const Description = styled.p`
   `}
 `
 
-export const Icons = styled.div`
+export const IconsWrapper = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.white};
-    display: flex;
   `}
 `
 
-export const Icon = styled.div`
+export const Icon = styled.span`
   ${({ theme }) => css`
     margin-right: ${theme.spacings.xxsmall};
   `}

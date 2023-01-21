@@ -1,8 +1,8 @@
 import OrdersList, { OrdersListProps } from 'components/OrdersList'
 import Profile from 'templates/Profile'
 
-import { GetServerSidePropsContext } from 'next'
 import protectedRoutes from 'utils/protected-routes'
+import { GetServerSidePropsContext } from 'next'
 import { initializeApollo } from 'utils/apollo'
 import {
   QueryOrders,
@@ -19,14 +19,12 @@ export default function Orders({ items }: OrdersListProps) {
   )
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const session = await protectedRoutes(ctx)
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await protectedRoutes(context)
   const apolloClient = initializeApollo(null, session)
 
   if (!session) {
-    return {
-      props: {}
-    }
+    return { props: {} }
   }
 
   const { data } = await apolloClient.query<QueryOrders, QueryOrdersVariables>({

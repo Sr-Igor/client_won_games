@@ -1,37 +1,46 @@
 import Link from 'next/link'
-import * as S from './styles'
-import { links } from './constants'
-import { ExitToApp } from 'styled-icons/material-outlined'
-import { signOut } from 'next-auth/client'
 import { useRouter } from 'next/router'
+import { signOut } from 'next-auth/client'
+import {
+  AccountCircle,
+  ExitToApp,
+  FormatListBulleted
+} from '@styled-icons/material-outlined'
+
+import * as S from './styles'
 
 export type ProfileMenuProps = {
-  activeLink?: string
+  activeLink?: '/profile/me' | '/profile/cards' | '/profile/orders' | string
 }
 
 const ProfileMenu = ({ activeLink }: ProfileMenuProps) => {
-  const push = useRouter()
+  const { push } = useRouter()
 
   return (
     <S.Nav>
-      {links?.map((link, index) => (
-        <Link key={index} href={link.href}>
-          <S.Link activeLink={activeLink === link.href} title={link.label}>
-            {link.icon}
-            <span>{link.label}</span>
-          </S.Link>
-        </Link>
-      ))}
+      <Link href="/profile/me" passHref>
+        <S.Link isActive={activeLink === '/profile/me'} title="My profile">
+          <AccountCircle size={24} />
+          <span>My profile</span>
+        </S.Link>
+      </Link>
+
+      <Link href="/profile/orders" passHref>
+        <S.Link isActive={activeLink === '/profile/orders'} title="My orders">
+          <FormatListBulleted size={24} />
+          <span>My orders</span>
+        </S.Link>
+      </Link>
+
       <S.Link
-        title={'Sign out'}
         role="button"
         onClick={async () => {
           const data = await signOut({ redirect: false, callbackUrl: '/' })
-          push.push(data.url)
+          push(data.url)
         }}
       >
-        <ExitToApp size={24} />
-        <span>{'Sign out'}</span>
+        <ExitToApp size={24} title="Sign out" />
+        <span>Sign out</span>
       </S.Link>
     </S.Nav>
   )

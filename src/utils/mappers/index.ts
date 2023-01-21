@@ -10,7 +10,7 @@ import { getImageUrl } from 'utils/getImageUrl'
 
 export const bannerMapper = (banners: QueryHome_banners[]) => {
   return banners.map((banner) => ({
-    img: `${getImageUrl(banner.image?.url)}`,
+    img: banner.image?.url ? `${getImageUrl(banner.image?.url)}` : null,
     title: banner.title,
     subtitle: banner.subtitle,
     buttonLabel: banner.button?.label,
@@ -32,7 +32,7 @@ export const gamesMapper = (
         title: game.name,
         slug: game.slug,
         developer: game.developers[0]?.name || '',
-        img: `${getImageUrl(game.cover?.url)}`,
+        img: game.cover?.url ? `${getImageUrl(game.cover?.url)}` : null,
         price: game.price
       }))
     : []

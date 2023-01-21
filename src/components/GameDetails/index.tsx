@@ -1,58 +1,41 @@
-import * as S from './styles'
-import Heading from 'components/Heading'
-import MediaMatch from 'components/MediaMatch'
 import { Apple, Windows, Linux } from '@styled-icons/fa-brands'
 
-export type GameDetailsProps = {
-  developer: string
-  releaseDate: string
-  platforms: Platform[]
-  publisher: string
-  rating: Rating
-  genres: string[]
-}
+import Heading from 'components/Heading'
+import MediaMatch from 'components/MediaMatch'
+
+import * as S from './styles'
 
 type Platform = 'windows' | 'linux' | 'mac'
 
 type Rating = 'BR0' | 'BR10' | 'BR12' | 'BR14' | 'BR16' | 'BR18'
 
+export type GameDetailsProps = {
+  developer: string
+  publisher: string
+  platforms: Platform[]
+  releaseDate: string
+  rating: Rating
+  genres: string[]
+}
+
 const GameDetails = ({
   developer,
+  publisher,
   releaseDate,
   platforms,
-  publisher,
   rating,
   genres
 }: GameDetailsProps) => {
   const platformIcons = {
-    windows: <Windows title="windows" size={18} />,
-    linux: <Linux title="linux" size={18} />,
-    mac: <Apple title="mac" size={18} />
-  }
-
-  const formatRating = (rating: Rating) => {
-    switch (rating) {
-      case 'BR0':
-        return 'FREE'
-      case 'BR10':
-        return '10+'
-      case 'BR12':
-        return '12+'
-      case 'BR14':
-        return '14+'
-      case 'BR16':
-        return '16+'
-      case 'BR18':
-        return '18+'
-      default:
-        return 'FREE'
-    }
+    linux: <Linux title="Linux" size={18} />,
+    mac: <Apple title="Mac" size={18} />,
+    windows: <Windows title="Windows" size={18} />
   }
 
   return (
-    <S.Wrapper>
+    <S.Wrapper data-cy="game-details">
       <MediaMatch greaterThan="small">
-        <Heading lineLeft lineColor="secondary" color="white">
+        <Heading lineLeft lineColor="secondary">
           Game Details
         </Heading>
       </MediaMatch>
@@ -76,11 +59,11 @@ const GameDetails = ({
 
         <S.Block>
           <S.Label>Platforms</S.Label>
-          <S.Icons>
+          <S.IconsWrapper>
             {platforms.map((icon: Platform) => (
               <S.Icon key={icon}>{platformIcons[icon]}</S.Icon>
             ))}
-          </S.Icons>
+          </S.IconsWrapper>
         </S.Block>
 
         <S.Block>
@@ -90,7 +73,9 @@ const GameDetails = ({
 
         <S.Block>
           <S.Label>Rating</S.Label>
-          <S.Description>{formatRating(rating as Rating)}</S.Description>
+          <S.Description>
+            {rating === 'BR0' ? 'FREE' : `${rating.replace('BR', '')}+`}
+          </S.Description>
         </S.Block>
 
         <S.Block>

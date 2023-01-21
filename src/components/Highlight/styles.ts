@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components'
-import { HighlightProps } from '.'
 import media from 'styled-media-query'
+import { HighlightProps } from '.'
 
 type WrapperProps = Pick<HighlightProps, 'alignment'>
 
 const wrapperModifiers = {
   right: () => css`
     grid-template-areas: 'floatimage content';
-    grid-template-columns: 1.5fr 2fr;
+    grid-template-columns: 1.3fr 2fr;
 
     ${Content} {
       text-align: right;
@@ -15,7 +15,7 @@ const wrapperModifiers = {
   `,
   left: () => css`
     grid-template-areas: 'content floatimage';
-    grid-template-columns: 2fr 1.5fr;
+    grid-template-columns: 2fr 1.3fr;
 
     ${Content} {
       text-align: left;
@@ -32,14 +32,13 @@ export const Wrapper = styled.section<WrapperProps>`
     position: relative;
     height: 23rem;
     display: grid;
-    ${wrapperModifiers[alignment!]()};
 
     &::after {
       content: '';
       position: absolute;
       width: 100%;
       height: 100%;
-      background: linear-gradient(180deg, #030517 0%, rgba(0, 0, 0, 0) 100%);
+      background-color: rgba(0, 0, 0, 0.6);
     }
 
     img {
@@ -50,6 +49,8 @@ export const Wrapper = styled.section<WrapperProps>`
     ${media.greaterThan('medium')`
       height: 32rem;
     `}
+
+    ${wrapperModifiers[alignment!]()}
   `}
 `
 
@@ -61,14 +62,14 @@ export const FloatImageWrapper = styled.div`
     max-width: 100%;
     align-self: end;
 
-    ${media.greaterThan('medium')`
-      max-height: 32rem;
-    `}
-
     img {
       position: relative;
       object-fit: contain;
     }
+
+    ${media.greaterThan('medium')`
+      max-height: 32rem;
+    `}
   `}
 `
 
@@ -85,7 +86,7 @@ export const Content = styled.div`
   `}
 `
 
-export const Title = styled.h1`
+export const Title = styled.h2`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.large};
     font-weight: ${theme.font.bold};
@@ -97,9 +98,9 @@ export const Title = styled.h1`
   `}
 `
 
-export const SubTitle = styled.h2`
+export const SubTitle = styled.h3`
   ${({ theme }) => css`
-    font-size: ${theme.font.sizes.xsmall};
+    font-size: ${theme.font.sizes.small};
     font-weight: ${theme.font.light};
     color: ${theme.colors.white};
     margin-bottom: ${theme.spacings.medium};

@@ -10,6 +10,7 @@ export const Wrapper = styled.section`
       align-items: center;
       justify-content: center;
       margin-top: ${theme.spacings.small};
+
       li {
         background: ${theme.colors.white};
         width: 1.2rem;
@@ -20,10 +21,17 @@ export const Wrapper = styled.section`
         justify-content: center;
         margin: 0 ${theme.spacings.xxsmall};
         cursor: pointer;
+        transition: box-shadow ${theme.transition.default};
+
         &.slick-active {
           background: ${theme.colors.primary};
         }
+
+        &:focus-within {
+          box-shadow: 0 0 0 0.3rem ${theme.colors.secondary};
+        }
       }
+
       button {
         opacity: 0;
         width: 1.2rem;
@@ -31,11 +39,21 @@ export const Wrapper = styled.section`
         cursor: pointer;
       }
     }
+
+    .slick-slide {
+      visibility: hidden;
+
+      &.slick-active.slick-current {
+        visibility: visible;
+      }
+    }
+
     ${media.greaterThan('large')`
       ${BannerStyles.Wrapper} {
         max-width: 104rem;
         margin: 0 auto;
       }
+
       .slick-dots {
         position: absolute;
         right: 0;
@@ -43,6 +61,7 @@ export const Wrapper = styled.section`
         height: 100%;
         top: 0;
         margin: 0;
+
         li {
           margin: ${theme.spacings.xxsmall} 0;
         }

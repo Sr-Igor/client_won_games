@@ -4,9 +4,8 @@ import { render, screen } from 'utils/test-utils'
 
 import Wishlist from '.'
 
-import { items as gamesMock } from 'components/GameCardSlider/mock'
-import { item as highlightMock } from 'components/Highlight/mock'
-
+import gamesMock from 'components/GameCardSlider/mock'
+import highlightMock from 'components/Highlight/mock'
 import { WishlistContextDefaultValues } from 'hooks/use-wishlist'
 
 const props = {

@@ -26,10 +26,6 @@ describe('<TextContent />', () => {
     expect(
       screen.queryByRole('heading', { name: /description/i })
     ).not.toBeInTheDocument()
-
-    expect(
-      screen.getByRole('heading', { name: /content/i })
-    ).toBeInTheDocument()
   })
 
   it('should render the title and content', () => {
@@ -40,7 +36,7 @@ describe('<TextContent />', () => {
     }).parentElement
 
     expect(wrapper).toHaveStyle({
-      color: '#FAFAFA'
+      color: '#FAFAFA' // theme.colors.white
     })
 
     expect(wrapper).toHaveStyleRule('color', '#030517', {

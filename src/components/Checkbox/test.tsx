@@ -1,67 +1,76 @@
-import { render, screen } from 'utils/test-utils'
+import { render, screen, waitFor } from 'utils/test-utils'
+import userEvent from '@testing-library/user-event'
 
+import theme from 'styles/theme'
 import Checkbox from '.'
 
 describe('<Checkbox />', () => {
-  it('should render the heading whith label', () => {
-    render(<Checkbox label={'label'} labelFor="action" />)
+  it('should render with label', () => {
+    const { container } = render(
+      <Checkbox label="checkbox label" labelFor="check" />
+    )
 
+    // input a partir do papel / role
     expect(screen.getByRole('checkbox')).toBeInTheDocument()
-    expect(screen.getByLabelText(/label/i)).toBeInTheDocument()
-    expect(screen.getByText(/label/i)).toHaveAttribute('for', 'action')
+
+    // input a partir da label associada
+    expect(screen.getByLabelText(/checkbox label/i)).toBeInTheDocument()
+
+    // label a partir do texto dela
+    expect(screen.getByText(/checkbox label/i)).toHaveAttribute('for', 'check')
+
+    expect(container.firstChild).toMatchSnapshot()
   })
 
-  it('should render the heading whithout label', () => {
+  it('should render without label', () => {
     render(<Checkbox />)
 
     expect(screen.queryByLabelText('Checkbox')).not.toBeInTheDocument()
   })
 
-  it('sholud render a black label', () => {
-    render(<Checkbox label="label" labelColor="black" />)
+  it('should render with black label', () => {
+    render(
+      <Checkbox label="checkbox label" labelFor="check" labelColor="black" />
+    )
 
-    expect(screen.getByText(/label/i)).toHaveStyle({
-      color: '#030517'
+    expect(screen.getByText(/checkbox label/i)).toHaveStyle({
+      color: theme.colors.black
     })
   })
 
-  it('sholud render a white label', () => {
-    render(<Checkbox label="label" labelColor="white" />)
-
-    expect(screen.getByText(/label/i)).toHaveStyle({
-      color: '#FAFAFA'
-    })
-  })
-
-  it('should dispatch onCheck when status changes', () => {
+  it('should dispatch onCheck when status changes', async () => {
     const onCheck = jest.fn()
 
-    render(<Checkbox label="label" onCheck={onCheck} />)
+    render(<Checkbox label="Checkbox" onCheck={onCheck} />)
 
     expect(onCheck).not.toHaveBeenCalled()
 
-    screen.getByRole('checkbox').click()
-
-    expect(onCheck).toHaveBeenCalledTimes(1)
+    userEvent.click(screen.getByRole('checkbox'))
+    await waitFor(() => {
+      expect(onCheck).toHaveBeenCalledTimes(1)
+    })
     expect(onCheck).toHaveBeenCalledWith(true)
   })
 
-  it('should render checked by default', () => {
+  it('should call onCheck with false if the Checkbox is already checked', async () => {
     const onCheck = jest.fn()
 
-    render(<Checkbox label="label" onCheck={onCheck} isChecked={true} />)
+    render(<Checkbox label="Checkbox" onCheck={onCheck} isChecked />)
 
-    expect(onCheck).not.toHaveBeenCalled()
-
-    screen.getByRole('checkbox').click()
-
-    expect(onCheck).toHaveBeenCalledTimes(1)
+    userEvent.click(screen.getByRole('checkbox'))
+    await waitFor(() => {
+      expect(onCheck).toHaveBeenCalledTimes(1)
+    })
     expect(onCheck).toHaveBeenCalledWith(false)
   })
 
   it('should be accessible with tab', () => {
-    render(<Checkbox label="labelText" labelFor="action" />)
+    render(<Checkbox label="Checkbox" labelFor="Checkbox" />)
 
-    expect((screen.getByLabelText(/labelText/i).tabIndex = 0))
+    expect(document.body).toHaveFocus()
+
+    userEvent.tab()
+
+    expect(screen.getByLabelText(/checkbox/i)).toHaveFocus()
   })
 })

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Slider /> should render childer as slider item 1`] = `
+exports[`<Slider /> should render children as slider item 1`] = `
 .c0 .slick-slider {
   position: relative;
   display: block;
@@ -177,4 +177,4 @@ exports[`<Slider /> should render childer as slider item 1`] = `
     </button>
   </div>
 </section>
-`;
+`

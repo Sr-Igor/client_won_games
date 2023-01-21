@@ -1,4 +1,4 @@
-export const items = [
+export default [
   {
     img: 'https://source.unsplash.com/user/willianjusten/1042x580',
     title: 'Defy death 1',

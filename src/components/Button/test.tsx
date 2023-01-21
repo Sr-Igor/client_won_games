@@ -1,50 +1,49 @@
-import { AddShoppingCart } from '@styled-icons/material-outlined/AddShoppingCart'
 import { render, screen } from 'utils/test-utils'
+import { AddShoppingCart } from '@styled-icons/material-outlined/AddShoppingCart'
 
 import Button from '.'
 
 describe('<Button />', () => {
-  it('should render the Button small', () => {
-    render(<Button size="small">Buy now</Button>)
-
-    expect(screen.getByRole('button', { name: /buy now/i })).toHaveStyle({
-      height: '3rem',
-      'font-size': '1.2rem',
-      padding: '0.8rem'
-    })
-  })
-
-  it('should render the Button medium by default', () => {
+  it('should render the medium size by default', () => {
     const { container } = render(<Button>Buy now</Button>)
 
-    expect(screen.getByRole('button', { name: /buy now/i })).toHaveStyle({
+    expect(screen.getByRole('button', { name: /Buy now/i })).toHaveStyle({
       height: '4rem',
-      'font-size': '1.4rem',
-      padding: '0.8rem 3.2rem'
+      padding: '0.8rem 3.2rem',
+      'font-size': '1.4rem'
     })
 
     expect(container.firstChild).toMatchSnapshot()
   })
 
-  it('should render the Button large', () => {
+  it('should render the small size', () => {
+    render(<Button size="small">Buy now</Button>)
+
+    expect(screen.getByRole('button', { name: /Buy now/i })).toHaveStyle({
+      height: '3rem',
+      'font-size': '1.2rem'
+    })
+  })
+
+  it('should render the large size', () => {
     render(<Button size="large">Buy now</Button>)
 
-    expect(screen.getByRole('button', { name: /buy now/i })).toHaveStyle({
+    expect(screen.getByRole('button', { name: /Buy now/i })).toHaveStyle({
       height: '5rem',
       'font-size': '1.6rem',
       padding: '0.8rem 4.8rem'
     })
   })
 
-  it('should render the Button with width 100%', () => {
-    render(<Button fullWidth={true}>Buy now</Button>)
+  it('should render a fullWidth version', () => {
+    render(<Button fullWidth>Buy now</Button>)
 
-    expect(screen.getByRole('button', { name: /buy now/i })).toHaveStyle({
+    expect(screen.getByRole('button', { name: /Buy now/i })).toHaveStyle({
       width: '100%'
     })
   })
 
-  it('should render the Button with icon', () => {
+  it('should render an icon version', () => {
     render(
       <Button icon={<AddShoppingCart data-testid="icon" />}>Buy now</Button>
     )
@@ -53,7 +52,7 @@ describe('<Button />', () => {
     expect(screen.getByTestId('icon')).toBeInTheDocument()
   })
 
-  it('should render the Button in minimal version', () => {
+  it('should render a minimal version', () => {
     render(
       <Button icon={<AddShoppingCart data-testid="icon" />} minimal>
         Buy now
@@ -86,7 +85,7 @@ describe('<Button />', () => {
     )
   })
 
-  it('should render button as a link', () => {
+  it('should render Button as a link', () => {
     render(
       <Button as="a" href="/link">
         Buy now

@@ -1,9 +1,10 @@
-import Banner, { BannnerProps } from 'components/Banner'
+import Banner, { BannerProps } from 'components/Banner'
 import Slider, { SliderSettings } from 'components/Slider'
+
 import * as S from './styles'
 
 export type BannerSliderProps = {
-  items: BannnerProps[]
+  items: BannerProps[]
 }
 
 const settings: SliderSettings = {
@@ -26,8 +27,8 @@ const settings: SliderSettings = {
 const BannerSlider = ({ items }: BannerSliderProps) => (
   <S.Wrapper>
     <Slider settings={settings}>
-      {items.map((item, idx) => (
-        <Banner key={idx} {...item} />
+      {items.map((item) => (
+        <Banner key={item.title} {...item} />
       ))}
     </Slider>
   </S.Wrapper>

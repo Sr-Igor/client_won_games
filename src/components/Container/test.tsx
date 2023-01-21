@@ -1,4 +1,4 @@
-import React from 'react'
+import theme from 'styles/theme'
 import { render } from 'utils/test-utils'
 import { Container } from '.'
 
@@ -6,11 +6,14 @@ describe('<Container />', () => {
   it('should render the heading', () => {
     const { container } = render(
       <Container>
-        <span>Loren Ipsun</span>
+        <span>Won Games</span>
       </Container>
     )
 
-    expect(container.firstChild).toHaveStyleRule('max-width', '130rem')
+    expect(container.firstChild).toHaveStyleRule(
+      'max-width',
+      theme.grid.container
+    )
 
     expect(container.firstChild).toMatchInlineSnapshot(`
       .c0 {
@@ -26,7 +29,7 @@ describe('<Container />', () => {
         class="c0"
       >
         <span>
-          Loren Ipsun
+          Won Games
         </span>
       </div>
     `)

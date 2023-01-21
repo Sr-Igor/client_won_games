@@ -1,18 +1,19 @@
-import * as S from './styles'
-import Button from 'components/Button'
-import Ribbon, { RibbonsColors, RibbonsSizes } from 'components/Ribbon'
-import { ReactNode } from 'react'
 import Image from 'next/image'
 
-export type BannnerProps = {
+import Ribbon, { RibbonColors, RibbonSizes } from 'components/Ribbon'
+import Button from 'components/Button'
+
+import * as S from './styles'
+
+export type BannerProps = {
   img: string
   title: string
   subtitle: string
   buttonLabel: string
   buttonLink: string
-  ribbon?: ReactNode
-  ribbonSize?: RibbonsSizes
-  ribbonColor?: RibbonsColors
+  ribbon?: React.ReactNode
+  ribbonColor?: RibbonColors
+  ribbonSize?: RibbonSizes
 }
 
 const Banner = ({
@@ -22,11 +23,11 @@ const Banner = ({
   buttonLabel,
   buttonLink,
   ribbon,
-  ribbonSize = 'normal',
-  ribbonColor = 'primary'
-}: BannnerProps) => (
+  ribbonColor = 'primary',
+  ribbonSize = 'normal'
+}: BannerProps) => (
   <S.Wrapper>
-    {ribbon && (
+    {!!ribbon && (
       <Ribbon color={ribbonColor} size={ribbonSize}>
         {ribbon}
       </Ribbon>
@@ -36,7 +37,6 @@ const Banner = ({
       <Image src={img} alt={title} layout="fill" objectFit="cover" />
     </S.ImageWrapper>
 
-    {/* <S.Image src={img} role="img" aria-label={title} /> */}
     <S.Caption>
       <S.Title>{title}</S.Title>
       <S.Subtitle dangerouslySetInnerHTML={{ __html: subtitle }} />

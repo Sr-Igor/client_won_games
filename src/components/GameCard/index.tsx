@@ -1,37 +1,40 @@
-import * as S from './styles'
-import Ribbon, { RibbonsColors, RibbonsSizes } from 'components/Ribbon'
+import Image from 'next/image'
 import Link from 'next/link'
-import formatPrice from 'utils/formatPrice'
+
+import Ribbon, { RibbonColors, RibbonSizes } from 'components/Ribbon'
 import CartButton from 'components/CartButton'
 import WishlistButton from 'components/WishlistButton'
-import Image from 'next/image'
+
+import formatPrice from 'utils/formatPrice'
+
+import * as S from './styles'
 
 export type GameCardProps = {
   id: string
+  slug: string
   title: string
   developer: string
   img: string
   price: number
-  slug: string
   promotionalPrice?: number
   ribbon?: React.ReactNode
-  ribbonColor?: RibbonsColors
-  ribbonSize?: RibbonsSizes
+  ribbonColor?: RibbonColors
+  ribbonSize?: RibbonSizes
 }
 
 const GameCard = ({
   id,
+  slug,
   title,
   developer,
   img,
   price,
   promotionalPrice,
-  slug,
   ribbon,
   ribbonColor = 'primary',
   ribbonSize = 'small'
 }: GameCardProps) => (
-  <S.Wrapper>
+  <S.Wrapper data-cy="game-card">
     {!!ribbon && (
       <Ribbon color={ribbonColor} size={ribbonSize}>
         {ribbon}
@@ -39,9 +42,7 @@ const GameCard = ({
     )}
     <Link href={`/game/${slug}`} passHref>
       <S.ImageBox>
-        {/* TODO: Fix Image */}
         <Image src={img} alt={title} layout="fill" objectFit="cover" />
-        {/* <img src={img} alt={title} /> */}
       </S.ImageBox>
     </Link>
     <S.Content>

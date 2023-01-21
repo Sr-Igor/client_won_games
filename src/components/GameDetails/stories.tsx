@@ -12,15 +12,13 @@ export default {
   },
   args: mockGame,
   argTypes: {
+    releaseDate: {
+      control: 'date'
+    },
     platforms: {
       control: {
         type: 'inline-check',
         options: ['windows', 'linux', 'mac']
-      }
-    },
-    releaseDate: {
-      control: {
-        type: 'date'
       }
     },
     genres: {
@@ -30,10 +28,10 @@ export default {
       }
     }
   }
-} as Meta
+} as Meta<GameDetailsProps>
 
 export const Default: Story<GameDetailsProps> = (args) => (
-  <div style={{ maxWidth: 1300, margin: '0 auto' }}>
+  <div style={{ maxWidth: '130rem', margin: '0 auto' }}>
     <GameDetails {...args} />
   </div>
 )

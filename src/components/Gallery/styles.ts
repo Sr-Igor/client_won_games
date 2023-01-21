@@ -15,23 +15,29 @@ export const Wrapper = styled.div`
       padding: 0;
       transform: translate(0, -50%);
     }
+
     .slick-prev {
       left: -${theme.spacings.xxlarge};
     }
+
     .slick-next {
       right: -${theme.spacings.xxlarge};
     }
+
     .slick-prev.slick-disabled,
     .slick-next.slick-disabled {
       visibility: hidden;
     }
+
     .slick-slide > div {
       margin: 0 ${theme.spacings.xsmall};
       cursor: pointer;
     }
+
     .slick-list {
       margin: 0 -${theme.spacings.xsmall};
     }
+
     ${media.lessThan('huge')`
       overflow-x: hidden;
     `}
@@ -71,6 +77,7 @@ export const Modal = styled.div<ModalProps>`
     ${!isOpen && modalModifiers.close()}
   `}
 `
+
 export const Close = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.white};

@@ -1,12 +1,11 @@
 import { CartContextData, CartContextDefaultValues } from 'hooks/use-cart'
-import { Session } from 'next-auth/client'
+import { Session } from 'next-auth'
 import { render, screen, waitFor } from 'utils/test-utils'
 
 import * as stripeMethods from 'utils/stripe/methods'
 import PaymentForm from '.'
 
 import items from 'components/CartList/mock'
-import React from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const useRouter = jest.spyOn(require('next/router'), 'useRouter')

@@ -1,21 +1,21 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
 import { CartContextData } from 'hooks/use-cart'
 import GameInfo, { GameInfoProps } from '.'
-import MockGameInfo from './mock'
+import mockGame from './mock'
 
 export default {
-  title: 'GameInfo',
+  title: 'Game/GameInfo',
   component: GameInfo,
-  args: MockGameInfo,
   parameters: {
     backgrounds: {
       default: 'won-dark'
     }
-  }
-} as Meta
+  },
+  args: mockGame
+} as Meta<GameInfoProps>
 
 export const Default: Story<GameInfoProps> = (args) => (
-  <div style={{ maxWidth: '104rem', margin: '0 auto' }}>
+  <div style={{ maxWidth: '144rem', margin: 'auto', padding: '1.5rem' }}>
     <GameInfo {...args} />
   </div>
 )
