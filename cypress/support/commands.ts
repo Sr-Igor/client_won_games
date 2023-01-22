@@ -29,3 +29,37 @@ import '@testing-library/cypress/add-commands'
 Cypress.Commands.add('google', () => {
   cy.visit('https://www.google.com')
 })
+
+Cypress.Commands.add('shouldRenderBanner', () => {
+  cy.get('.slick-slider').within(() => {
+    cy.findByRole('heading', { name: /Banner with bf image in a bridge/i })
+    cy.findByRole('link', { name: /Buy now/i })
+    cy.get('.slick-dots > :nth-child(2) > button').click()
+
+    cy.wait(500)
+
+    cy.findAllByRole('heading', { name: /Lorem Ipsum is simply dummy/i })
+    cy.findByRole('link', { name: /Buy now/i })
+
+    cy.get('.slick-dots > :nth-child(3) > button').click()
+    cy.wait(500)
+
+    cy.findByRole('heading', { name: /Loren text/i })
+  })
+})
+
+Cypress.Commands.add('shouldRenderShowcase', ({name, haveCards = true, highlight = false,}) => {
+    cy.get(`[data-cy="${name}"]`).within(() => {
+      cy.findByRole('heading', { name }).should('exist')
+
+      cy.get(`[data-cy="highlight"]`).should(highlight ? 'exist' : 'not.exist')
+
+      if(highlight) {
+        cy.findAllByRole('link').should('have.attr', 'href')
+      }
+
+      if(haveCards){
+        cy.get(`[data-cy="game-card"]`).should('have.length.gt', 0)
+      }
+    })
+})

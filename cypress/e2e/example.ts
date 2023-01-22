@@ -1,6 +1,6 @@
 /// <reference path="../support/index.d.ts" />
 
-describe('My First Test', () => {
+describe.skip('My First Test', () => {
   it('Does not do much!', () => {
     cy.google()
   })
