@@ -67,3 +67,23 @@ Cypress.Commands.add('shouldRenderShowcase', ({name, haveCards = true, highlight
       }
     })
 })
+
+Cypress.Commands.add('getFields', (fields) => {
+  fields.forEach(({label}) => {
+    cy.findByText(label).should('exist')
+  })
+})
+
+Cypress.Commands.add('shouldBeLessThan', (value) => {
+  cy.findByText(/^\$\d+(\.\d{1,2})?$/).should('exist')
+  .invoke('text')
+  .then(el => parseFloat(el.replace('$', '')))
+  .should('be.lt', value)
+})
+
+Cypress.Commands.add('shouldBeGreaterThan', (value) => {
+  cy.findByText(/^\$\d+(\.\d{1,2})?$/).should('exist')
+  .invoke('text')
+  .then(el => parseFloat(el.replace('$', '')))
+  .should('be.gt', value)
+})

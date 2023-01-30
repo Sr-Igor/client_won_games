@@ -8,6 +8,11 @@ type ShowcaseAttribrutes = {
   haveCards?: boolean
 }
 
+type FieldAttributes = {
+  label: string
+  name: string | number
+}
+
 declare namespace Cypress {
   interface Chainable {
     /**
@@ -33,5 +38,25 @@ declare namespace Cypress {
      * @example cy.shouldRenderShowcase()
      */
     shouldRenderShowcase(attrs: ShowcaseAttribrutes): Chainable<Element>
+
+    /**
+     * Custom command to get fields by label.
+     * @example cy.getFields([{label: 'Price', name: 'price'}])
+     */
+    getFields(attrs: FieldAttributes[]): Chainable<Element>
+
+
+    /**
+     * Custom command to check if value is less than price.
+     * @example cy.shouldBeLessThan(100)
+     */
+    shouldBeLessThan(value: number): Chainable<Element>
+
+    /**
+    * Custom command to check if value is less than price.
+    * @example cy.shouldBeLessThan(100)
+    */
+    shouldBeGreaterThan(value: number): Chainable<Element>
+
   }
 }
