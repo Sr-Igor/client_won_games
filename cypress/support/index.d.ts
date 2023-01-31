@@ -72,5 +72,11 @@ declare namespace Cypress {
     */
     signUp(user: User): Chainable<Element>
 
+    /**
+    * Custom command to check if value is less than price.
+    * @example cy.signIn(user)
+    */
+    signIn(email?: String, password?: String): Chainable<Element>
+
   }
 }
