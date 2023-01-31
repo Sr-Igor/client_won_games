@@ -1,7 +1,5 @@
 /// <reference path="../support/index.d.ts" />
 
-import { should } from "chai"
-
 describe('Game page', () => {
 
   before(() => {

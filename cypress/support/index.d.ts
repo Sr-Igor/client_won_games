@@ -2,6 +2,8 @@
 
 /// <reference types="cypress" />
 
+// import { User } from "./generate"
+
 type ShowcaseAttribrutes = {
   name: string
   highlight?: boolean
@@ -11,6 +13,12 @@ type ShowcaseAttribrutes = {
 type FieldAttributes = {
   label: string
   name: string | number
+}
+
+type User = {
+  username: string
+  email: string
+  password: string
 }
 
 declare namespace Cypress {
@@ -57,6 +65,12 @@ declare namespace Cypress {
     * @example cy.shouldBeLessThan(100)
     */
     shouldBeGreaterThan(value: number): Chainable<Element>
+
+    /**
+    * Custom command to check if value is less than price.
+    * @example cy.signUp(user)
+    */
+    signUp(user: User): Chainable<Element>
 
   }
 }
