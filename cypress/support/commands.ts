@@ -101,7 +101,6 @@ Cypress.Commands.add('signUp', (user) => {
 
 
 Cypress.Commands.add('signIn', (email ='e2e@wongames.com', password = '123456') => {
-  cy.visit('/sign-in')
 
   cy.findByPlaceholderText(/email/i).type(email)
   cy.findByPlaceholderText(/^password/i).type(password)
