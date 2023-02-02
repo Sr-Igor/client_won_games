@@ -38,16 +38,6 @@ describe('Cart', () => {
 
     cy.findAllByLabelText(/cart items/i).should('not.exist')
 
-    // cy.findByText(/add to cart/i).click()
-    // cy.findByText(/add to cart/i).click()
-    // cy.findByText(/add to cart/i).click()
-
-    // cy.findByText(/cart/i).click()
-
-    // cy.findByText(/remove/i).click()
-    // cy.findByText(/remove/i).click()
-    // cy.findByText(/remove/i).click()
-
     cy.findAllByLabelText(/shopping cart/i).first().click()
     cy.findByText(/cart is empty/i).should('exist')
   })
