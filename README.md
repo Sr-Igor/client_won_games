@@ -1,6 +1,3 @@
-
-![React Avançado](https://raw.githubusercontent.com/React-Avancado/boilerplate/master/public/img/logo-gh.svg)
-
 This is a [Next.js](https://nextjs.org/) project with GrapQL.
 
 ## What is inside?
